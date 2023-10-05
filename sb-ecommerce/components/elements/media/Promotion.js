@@ -1,13 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
-import { baseUrl } from '~/repositories/Repository';
 
 const Promotion = ({ link, image }) => {
     if (image) {
         return (
             <Link href={link}>
                 <a className="ps-collection">
-                    <img src={`${baseUrl}${image.url}`} alt="surebank" />
+                    <img src={`${image}`} alt="surebank" />
                 </a>
             </Link>
         );

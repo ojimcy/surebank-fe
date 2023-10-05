@@ -4,40 +4,42 @@ import NextArrow from '~/components/elements/carousel/NextArrow';
 import PrevArrow from '~/components/elements/carousel/PrevArrow';
 import Link from 'next/link';
 import MediaRepository from '~/repositories/MediaRepository';
-import { baseUrl } from '~/repositories/Repository';
-import { getItemBySlug } from '~/utilities/product-helper';
 import Promotion from '~/components/elements/media/Promotion';
 
 const HomeDefaultBanner = () => {
     const [bannerItems, setBannerItems] = useState(null);
-    const [promotion1, setPromotion1] = useState(null);
-    const [promotion2, setPromotion2] = useState(null);
+    const [promotions, setPromotions] = useState([]);
 
-    async function getBannerItems() {
-        const responseData = await MediaRepository.getBannersBySlug(
-            'banner-home-fullwidth'
-        );
-        if (responseData) {
-            setBannerItems(responseData);
+    const fetchBannerItems = async () => {
+        try {
+            const responseData = await MediaRepository.getBannersBySlug(
+                'banner-home-fullwidth'
+            );
+            if (responseData) {
+                setBannerItems(responseData);
+            }
+        } catch (error) {
+            console.error('Error fetching banner items:', error);
         }
-    }
-
-    async function getPromotions() {
-        const responseData = await MediaRepository.getPromotionsBySlug(
-            'home_fullwidth_promotions'
-        );
-        if (responseData) {
-            setPromotion1(getItemBySlug(responseData, 'main_1'));
-            setPromotion2(getItemBySlug(responseData, 'main_2'));
+    };
+    const fetchPromotions = async () => {
+        try {
+            const responseData = await MediaRepository.getPromotionsBySlug(
+                'home_fullwidth_promotions'
+            );
+            if (responseData) {
+                setPromotions(responseData);
+            }
+        } catch (error) {
+            console.error('Error fetching promotions:', error);
         }
-    }
-
+    };
     useEffect(() => {
-        getBannerItems();
-        getPromotions();
+        fetchBannerItems();
+        fetchPromotions();
     }, []);
 
-    const carouselSetting = {
+    const carouselSettings = {
         dots: false,
         infinite: true,
         speed: 750,
@@ -48,40 +50,33 @@ const HomeDefaultBanner = () => {
         prevArrow: <PrevArrow />,
     };
 
-    // Views
-    let mainCarouselView;
+    let mainCarouselView = null;
     if (bannerItems) {
-        const carouseItems = bannerItems.map((item) => (
+        const carouselItems = bannerItems.map((item) => (
             <div className="slide-item" key={item.id}>
                 <Link href="/shop">
                     <a
                         className="ps-banner-item--default bg--cover"
-                        style={{
-                            backgroundImage: `url(${baseUrl}${item.image.url})`,
-                        }}
+                        style={{ backgroundImage: `url(${item.imageUrl})` }}
                     />
                 </Link>
             </div>
         ));
         mainCarouselView = (
-            <Slider {...carouselSetting} className="ps-carousel">
-                {carouseItems}
+            <Slider {...carouselSettings} className="ps-carousel">
+                {carouselItems}
             </Slider>
         );
     }
+
     return (
         <div className="ps-home-banner ps-home-banner--1">
             <div className="ps-container">
                 <div className="ps-section__left">{mainCarouselView}</div>
                 <div className="ps-section__right">
-                    <Promotion
-                        link="/shop"
-                        image={promotion1 ? promotion1.image : null}
-                    />
-                    <Promotion
-                        link="/shop"
-                        image={promotion2 ? promotion2.image : null}
-                    />
+                    {promotions.map((promotion) => (
+                        <Promotion key={promotion.id} link="/shop" image={promotion.imageUrl} />
+                    ))}
                 </div>
             </div>
         </div>

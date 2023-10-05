@@ -1,42 +1,24 @@
-import Repository, { baseUrl } from './Repository';
-
-class MediaRespository {
-
+class MediaRepository {
     async getBannersBySlug(payload) {
-        const endPoint = `banners?slug_in=${payload}`;
+        // Simulated banner data
+        const simulatedBanners = [
+            { id: 1, imageUrl: '/static/img/slider/home-1/slide-1.jpg' },
+            { id: 2, imageUrl: '/static/img/slider/home-1/slide-2.jpg' },
+            { id: 2, imageUrl: '/static/img/slider/home-1/slide-3.jpg' },
+        ];
 
-        const reponse = await Repository.get(`${baseUrl}/${endPoint}`)
-            .then((response) => {
-                if (response.data) {
-                    return response.data[0].items;
-                } else {
-                    return null;
-                }
-            })
-            .catch((error) => {
-                console.log(JSON.stringify(error));
-                return null;
-            });
-        return reponse;
+        return simulatedBanners;
     }
 
     async getPromotionsBySlug(payload) {
-        const endPoint = `promotions?slug_in=${payload}`;
-        const reponse = await Repository.get(`${baseUrl}/${endPoint}`)
-            .then((response) => {
-                if (response.data) {
-                    return response.data[0].items;
-                } else {
-                    return null;
-                }
-            })
-            .catch((error) => {
-                console.log(JSON.stringify(error));
-                return null;
-            });
-        return reponse;
-    }
+        // Simulated promotion data
+        const simulatedPromotions = [
+            { id: 1, imageUrl: '/static/img/slider/home-1/promotion-1.jpg' },
+            { id: 2, imageUrl: '/static/img/slider/home-1/promotion-2.jpg' },
+        ];
 
+        return simulatedPromotions;
+    }
 }
 
-export default new MediaRespository();
+export default new MediaRepository();
