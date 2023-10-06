@@ -20,7 +20,7 @@ const modalWarning = type => {
 function* loginSaga() {
     try {
         yield put(loginSuccess());
-        modalSuccess('success');
+        modalSuccess('success');z
     } catch (err) {
         console.log(err);
     }

@@ -17,14 +17,14 @@ const HomepageDefaultPage = () => {
                 <HomeDefaultBanner />
                 <SiteFeatures />
                 <HomeDefaultDealOfDay collectionSlug="deal-of-the-day" />
-                <HomeAdsColumns />
+                {/* <HomeAdsColumns /> */}
                 <HomeDefaultTopCategories />
                 <HomeDefaultProductListing
                     collectionSlug="consumer-electronics"
                     title="Consumer Electronics"
                 />
                 <HomeDefaultProductListing
-                    collectionSlug="clothings"
+                    collectionSlug="clothing-and-apparel"
                     title="Clothings"
                 />
                 <HomeDefaultProductListing
@@ -32,7 +32,7 @@ const HomepageDefaultPage = () => {
                     title="Garden & Kitchen"
                 />
                 <HomeAds />
-                <NewArrivals collectionSlug="new-arrivals-products" />
+                <NewArrivals collectionSlug="new-arrivals" />
                 <Newletters />
             </main>
         </PageContainer>

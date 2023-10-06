@@ -1,25 +1,21 @@
 import Repository, { baseUrl } from './Repository';
 
 class CollectionRepository {
-
     async getProductsByCollectionSlug(slug) {
         const response = await Repository.get(
             `${baseUrl}/product/collections?collectionSlug=${slug}`
         )
             .then((response) => {
                 if (response.data && response.data.length > 0) {
-                    return { items: response.data[0].products };
+                    return { items: response.data };
                 } else {
                     return null;
                 }
-                return response.data;
             })
             .catch((error) => {
                 console.log(JSON.stringify(error));
                 return null;
             });
-        console.log(response);
-
         return response;
     }
 
@@ -29,11 +25,10 @@ class CollectionRepository {
         )
             .then((response) => {
                 if (response.data && response.data.length > 0) {
-                    return { items: response.data[0].products };
+                    return { items: response.data };
                 } else {
                     return null;
                 }
-                return response.data;
             })
             .catch((error) => {
                 console.log(JSON.stringify(error));

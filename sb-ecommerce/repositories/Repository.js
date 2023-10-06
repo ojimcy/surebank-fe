@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseDomain = 'http://localhost:3001/v1/'; // API for products
+const baseDomain = 'http://localhost:3001/v1'; // API for products
 
 export const customHeaders = {
     Accept: 'application/json',

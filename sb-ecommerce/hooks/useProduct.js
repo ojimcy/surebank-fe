@@ -6,7 +6,6 @@ import Link from 'next/link';
 
 function getImageURL(source, size) {
     let image, imageURL;
-
     if (source) {
         if (size && size === 'large') {
             if (source.formats.large) {
@@ -46,13 +45,13 @@ export default function useProduct() {
     return {
         thumbnailImage: (payload) => {
             if (payload) {
-                if (payload.thumbnail) {
+                if (payload.image) {
                     return (
                         <>
                             <LazyLoad>
                                 <img
-                                    src={getImageURL(payload.thumbnail)}
-                                    alt={getImageURL(payload.thumbnail)}
+                                    src={getImageURL(payload.image)}
+                                    alt={getImageURL(payload.title)}
                                 />
                             </LazyLoad>
                         </>
@@ -62,14 +61,14 @@ export default function useProduct() {
         },
         price: (payload) => {
             let view;
-            if (payload.sale_price) {
+            if (payload.orignalPrice) {
                 view = (
                     <p className="ps-product__price sale">
                         <span>$</span>
-                        {formatCurrency(payload.sale_price)}
+                        {formatCurrency(payload.orignalPrice)}
                         <del className="ml-2">
                             <span>$</span>
-                            {formatCurrency(payload.price)}
+                            {formatCurrency(payload.orignalPrice)}
                         </del>
                     </p>
                 );
@@ -144,10 +143,10 @@ export default function useProduct() {
                     }
                 });
             }
-            if (payload.sale_price) {
+            if (payload.originalPrice) {
                 const discountPercent = (
-                    ((payload.price - payload.sale_price) /
-                        payload.sale_price) *
+                    ((payload.originalPrice - payload.price) /
+                        payload.price) *
                     100
                 ).toFixed(0);
                 return (
@@ -178,7 +177,7 @@ export default function useProduct() {
         title: (payload) => {
             let view = (
                 <Link href="/product/[pid]" as={`/product/${payload.id}`}>
-                    <a className="ps-product__title">{payload.title}</a>
+                    <a className="ps-product__title">{payload.name}</a>
                 </Link>
             );
             return view;

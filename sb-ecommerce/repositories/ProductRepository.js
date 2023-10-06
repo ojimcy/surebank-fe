@@ -2,19 +2,19 @@ import Repository, { baseUrl, serializeQuery } from './Repository';
 
 class ProductRepository {
     async getRecords(params) {
-        const reponse = await Repository.get(
+        const response = await Repository.get(
             `${baseUrl}/products?${serializeQuery(params)}`
         )
             .then((response) => {
                 return response.data;
             })
             .catch((error) => ({ error: JSON.stringify(error) }));
-        return reponse;
+        return response;
     }
 
     async getProducts(params) {
-        const reponse = await Repository.get(
-            `${baseUrl}/products?${serializeQuery(params)}`
+        const response = await Repository.get(
+            `${baseUrl}/product?${serializeQuery(params)}`
         )
             .then((response) => {
                 if (response.data && response.data.length > 0) {
@@ -28,47 +28,47 @@ class ProductRepository {
                 console.log(JSON.stringify(error));
                 return null;
             });
-        return reponse;
+        return response;
     }
 
     async getBrands() {
-        const reponse = await Repository.get(`${baseUrl}/brands`)
+        const response = await Repository.get(`${baseUrl}/brands`)
             .then((response) => {
                 return response.data;
             })
             .catch((error) => ({ error: JSON.stringify(error) }));
-        return reponse;
+        return response;
     }
 
     async getProductCategories() {
-        const reponse = await Repository.get(`${baseUrl}/product-categories`)
+        const response = await Repository.get(`${baseUrl}/product-categories`)
             .then((response) => {
                 return response.data;
             })
             .catch((error) => ({ error: JSON.stringify(error) }));
-        return reponse;
+        return response;
     }
 
     async getTotalRecords() {
-        const reponse = await Repository.get(`${baseUrl}/products/count`)
+        const response = await Repository.get(`${baseUrl}/products/count`)
             .then((response) => {
                 return response.data;
             })
             .catch((error) => ({ error: JSON.stringify(error) }));
-        return reponse;
+        return response;
     }
 
     async getProductsById(payload) {
-        const reponse = await Repository.get(`${baseUrl}/products/${payload}`)
+        const response = await Repository.get(`${baseUrl}/products/${payload}`)
             .then((response) => {
                 return response.data;
             })
             .catch((error) => ({ error: JSON.stringify(error) }));
-        return reponse;
+        return response;
     }
 
     async getProductsByCategory(payload) {
-        const reponse = await Repository.get(
+        const response = await Repository.get(
             `${baseUrl}/product-categories?slug=${payload}`
         )
             .then((response) => {
@@ -83,11 +83,11 @@ class ProductRepository {
             .catch(() => {
                 return null;
             });
-        return reponse;
+        return response;
     }
 
     async getProductsByBrand(payload) {
-        const reponse = await Repository.get(
+        const response = await Repository.get(
             `${baseUrl}/brands?slug=${payload}`
         )
             .then((response) => {
@@ -102,12 +102,12 @@ class ProductRepository {
             .catch(() => {
                 return null;
             });
-        return reponse;
+        return response;
     }
 
     async getProductsByIds(payload) {
         const endPoint = `${baseUrl}/products?${payload}`;
-        const reponse = await Repository.get(endPoint)
+        const response = await Repository.get(endPoint)
             .then((response) => {
                 if (response.data && response.data.length > 0) {
                     return response.data;
@@ -119,7 +119,7 @@ class ProductRepository {
                 console.log(JSON.stringify(error));
                 return null;
             });
-        return reponse;
+        return response;
     }
 }
 

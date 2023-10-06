@@ -15,7 +15,6 @@ const ProductGroupGridItems = ({
     const [classes, setClasses] = useState(
         'col-xl-4 col-lg-4 col-md-3 col-sm-6 col-6'
     );
-
     async function getProduct() {
         let queries, SPProducts;
         if (collectionSlug !== undefined) {
@@ -62,7 +61,6 @@ const ProductGroupGridItems = ({
                 setClasses('col-xl-4 col-lg-4 col-md-3 col-sm-6 col-6');
         }
     }
-
     useEffect(() => {
         getProduct();
         handleSetColumns();

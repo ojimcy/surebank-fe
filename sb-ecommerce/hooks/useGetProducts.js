@@ -7,7 +7,7 @@ import ProductRepository from '~/repositories/ProductRepository';
 
 export default function useGetProducts() {
     const [loading, setLoading] = useState(false);
-    const [productItems, setProductItems] = useState(null);
+    const [productItems, setProductItems] = useState([]);
     const [product, setProduct] = useState(null);
     return {
         loading,
@@ -32,8 +32,8 @@ export default function useGetProducts() {
                     }.bind(this),
                     250
                 );
+                console.log('pr1', productItems);
             }
-
         },
 
         getProductsByCategory: async (payload) => {

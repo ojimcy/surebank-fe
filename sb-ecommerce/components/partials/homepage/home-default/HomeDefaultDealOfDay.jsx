@@ -14,7 +14,6 @@ const HomeDefaultDealOfDay = ({ collectionSlug }) => {
     useEffect(() => {
         getProductsByCollection(collectionSlug);
     }, [collectionSlug]);
-
     // Views
     let productItemsView;
     if (!loading) {
@@ -38,7 +37,6 @@ const HomeDefaultDealOfDay = ({ collectionSlug }) => {
         ));
         productItemsView = <div className="row">{skeletons}</div>;
     }
-
     return (
         <div className="ps-deal-of-day">
             <div className="ps-container">
