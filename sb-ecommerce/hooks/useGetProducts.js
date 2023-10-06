@@ -33,6 +33,7 @@ export default function useGetProducts() {
                     250
                 );
             }
+
         },
 
         getProductsByCategory: async (payload) => {

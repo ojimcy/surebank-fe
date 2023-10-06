@@ -3,8 +3,8 @@ import Repository, { baseUrl } from './Repository';
 class CollectionRepository {
 
     async getProductsByCollectionSlug(slug) {
-        const reponse = await Repository.get(
-            `${baseUrl}/collections?slug_in=${slug}`
+        const response = await Repository.get(
+            `${baseUrl}/product/collections?collectionSlug=${slug}`
         )
             .then((response) => {
                 if (response.data && response.data.length > 0) {
@@ -18,12 +18,14 @@ class CollectionRepository {
                 console.log(JSON.stringify(error));
                 return null;
             });
-        return reponse;
+        console.log(response);
+
+        return response;
     }
 
     async getProductsByCategorySlug(slug) {
         const reponse = await Repository.get(
-            `${baseUrl}/product-categories?slug_in=${slug}`
+            `${baseUrl}/product-categories?collectionSlug=${slug}`
         )
             .then((response) => {
                 if (response.data && response.data.length > 0) {
