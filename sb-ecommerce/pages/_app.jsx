@@ -19,6 +19,8 @@ import '~/scss/technology.scss';
 import '~/scss/autopart.scss';
 import '~/scss/electronic.scss';
 import Head from 'next/head';
+import { AuthProvider } from '~/context/authContext';
+import { AppProvider } from '~/context/appContext';
 function App({ Component, pageProps }) {
     useEffect(() => {
         setTimeout(function () {
@@ -47,11 +49,15 @@ function App({ Component, pageProps }) {
                     content="Surebank - React eCommerce Template"
                 />
             </Head>
-            <CookiesProvider>
-                <MasterLayout>
-                    <Component {...pageProps} />
-                </MasterLayout>
-            </CookiesProvider>
+            <AuthProvider>
+                <AppProvider>
+                    <CookiesProvider>
+                        <MasterLayout>
+                            <Component {...pageProps} />
+                        </MasterLayout>
+                    </CookiesProvider>
+                </AppProvider>
+            </AuthProvider>
         </>
     );
 }

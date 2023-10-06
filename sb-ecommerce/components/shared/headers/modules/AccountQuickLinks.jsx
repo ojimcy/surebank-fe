@@ -1,13 +1,22 @@
 import React from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import Link from 'next/link';
-import { logOut } from '~/store/auth/action';
+import { useAuth } from '~/context/authContext';
+import { notification } from 'antd';
 
 const AccountQuickLinks = (props) => {
-    const dispatch = useDispatch();
-    const handleLogout = (e) => {
-        e.preventDefault();
-        dispatch(logOut());
+    const { logout } = useAuth();
+
+    const handleLogout = async () => {
+        try {
+            await logout();
+            notification.success({
+                message: 'Logout Successful',
+                duration: 300,
+            });
+        } catch (error) {
+            console.error(error);
+        }
     };
     const accountLinks = [
         {
