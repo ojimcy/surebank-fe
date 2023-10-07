@@ -6,7 +6,7 @@ const HomeAdsColumns = () => {
     const promotions = [
         { id: 1, imageUrl: '/static/img/slider/home-1/promotion-1.jpg' },
         { id: 2, imageUrl: '/static/img/slider/home-1/promotion-2.jpg' },
-        { id: 2, imageUrl: '/static/img/slider/home-1/promotion-1.jpg' },
+        { id: 3, imageUrl: '/static/img/slider/home-1/promotion-1.jpg' },
     ];
 
     return (

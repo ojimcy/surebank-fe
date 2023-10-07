@@ -9,8 +9,9 @@ const FooterWidgets = () => (
                 <p>Call us 24/7</p>
                 <h3>1800 97 97 69</h3>
                 <p>
-                    502 New Design Str, Melbourne, Australia <br />
-                    <a href="mailto:contact@surebank.co">contact@surebank.co</a>
+                    Lagos, Nigeria
+                    <br />
+                    <a href="mailto:surebank@gmail.com">surebank@gmail.com</a>
                 </p>
                 <ul className="ps-list--social">
                     <li>
