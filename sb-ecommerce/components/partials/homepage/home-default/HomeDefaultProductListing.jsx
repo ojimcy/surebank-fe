@@ -30,7 +30,7 @@ const HomeDefaultProductListing = ({ collectionSlug, title }) => {
         e.preventDefault();
         setCurrentCollection(tab.name);
         getProductsByCollection(tab.slug);
-    }
+    } 
 
     useEffect(() => {
         getProductsByCollection(collectionSlug);

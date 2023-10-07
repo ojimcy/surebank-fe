@@ -32,7 +32,6 @@ export default function useGetProducts() {
                     }.bind(this),
                     250
                 );
-                console.log('pr1', productItems);
             }
         },
 

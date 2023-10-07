@@ -145,49 +145,6 @@ const FooterSecond = ({ classes }) => (
             </div>
             <div className="ps-footer__copyright">
                 <p>&copy;2021 Surebank. All Rights Reserved</p>
-                <p>
-                    <span>We Using Safe Payment For:</span>
-                    <Link href="/page/blank">
-                        <a>
-                            <img
-                                src="/static/img/payment-method/1.jpg"
-                                alt="surebank"
-                            />
-                        </a>
-                    </Link>
-                    <Link href="/page/blank">
-                        <a>
-                            <img
-                                src="/static/img/payment-method/2.jpg"
-                                alt="surebank"
-                            />
-                        </a>
-                    </Link>
-                    <Link href="/page/blank">
-                        <a>
-                            <img
-                                src="/static/img/payment-method/3.jpg"
-                                alt="surebank"
-                            />
-                        </a>
-                    </Link>
-                    <Link href="/page/blank">
-                        <a>
-                            <img
-                                src="/static/img/payment-method/4.jpg"
-                                alt="surebank"
-                            />
-                        </a>
-                    </Link>
-                    <Link href="/page/blank">
-                        <a>
-                            <img
-                                src="/static/img/payment-method/5.jpg"
-                                alt="surebank"
-                            />
-                        </a>
-                    </Link>
-                </p>
             </div>
         </div>
     </footer>

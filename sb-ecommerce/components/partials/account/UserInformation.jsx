@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
 import FormChangeUserInformation from '~/components/shared/FormChangeUserInformation';
+import { useAuth } from '~/context/authContext';
 
 const UserInformation = () => {
+    const { currentUser, logout } = useAuth();
     const accountLinks = [
         {
             text: 'Account Information',
@@ -49,6 +51,18 @@ const UserInformation = () => {
         </li>
     ));
 
+    const handleLogout = async () => {
+        try {
+            await logout();
+            notification.success({
+                message: 'Logout Successful',
+                duration: 300,
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <section className="ps-my-account ps-page--account">
             <div className="container">
@@ -60,7 +74,7 @@ const UserInformation = () => {
                                     <img src="/static/img/users/3.jpg" />
                                     <figure>
                                         <figcaption>Hello</figcaption>
-                                        <p>username@gmail.com</p>
+                                        <p>{currentUser?.firstName}</p>
                                     </figure>
                                 </div>
                                 <div className="ps-widget__content">
@@ -84,7 +98,7 @@ const UserInformation = () => {
                                         ))}
                                         <li>
                                             <Link href="/account/my-account">
-                                                <a>
+                                                <a onClick={handleLogout}>
                                                     <i className="icon-power-switch"></i>
                                                     Logout
                                                 </a>
