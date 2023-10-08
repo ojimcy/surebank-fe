@@ -2,7 +2,6 @@ import React from 'react';
 import BreadCrumb from '~/components/elements/BreadCrumb';
 import StoreDetail from '~/components/partials/stores/StoreDetail';
 import PageContainer from '~/components/layouts/PageContainer';
-import Newsletters from '~/components/partials/commons/Newletters';
 
 const StoreDetailPage = () => {
     const breadCrumb = [
@@ -23,7 +22,6 @@ const StoreDetailPage = () => {
         <PageContainer title="Store" boxed={true}>
             <BreadCrumb breacrumb={breadCrumb} />
             <StoreDetail />
-            <Newsletters layout="container" />
         </PageContainer>
     );
 };

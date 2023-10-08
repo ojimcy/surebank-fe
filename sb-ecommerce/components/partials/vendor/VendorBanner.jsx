@@ -11,7 +11,7 @@ const VendorBanner = () => (
                     Millions Of Shoppers Can’t Wait To See What You Have In
                     Store
                 </h2>
-                <Link href="/vendor/store-list">
+                <Link href="/vendor/apply">
                     <a className="ps-btn ps-btn--lg" href="#">
                         Start Selling
                     </a>
