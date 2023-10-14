@@ -5,7 +5,7 @@ import { useAuth } from '~/context/authContext';
 import { notification } from 'antd';
 
 const AccountQuickLinks = (props) => {
-    const { logout } = useAuth();
+    const { logout, currentUser } = useAuth();
 
     const handleLogout = async () => {
         try {
@@ -44,7 +44,14 @@ const AccountQuickLinks = (props) => {
             url: '/account/wishlist',
         },
     ];
-    const { isLoggedIn } = props;
+    
+     if (currentUser && currentUser.role !== 'user') {
+         accountLinks.push({
+             text: 'View Products',
+             url: '/shop/products/all-requests',
+         });
+     }
+
 
     // View
     const linksView = accountLinks.map((item) => (
@@ -55,7 +62,7 @@ const AccountQuickLinks = (props) => {
         </li>
     ));
 
-    if (isLoggedIn === true) {
+    if (currentUser) {
         return (
             <div className="ps-block--user-account">
                 <i className="icon-user"></i>

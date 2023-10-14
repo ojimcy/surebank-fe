@@ -10,7 +10,7 @@ const Logo = ({ type }) => {
     return (
         <Link href={data.url}>
             <a className="ps-logo">
-                <img src={data.img} alt="" />
+                Surebank
             </a>
         </Link>
     );

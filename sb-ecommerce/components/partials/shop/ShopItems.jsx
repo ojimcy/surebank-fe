@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { generateTempArray } from '~/utilities/common-helpers';
 import SkeletonProduct from '~/components/elements/skeletons/SkeletonProduct';
 import useGetProducts from '~/hooks/useGetProducts';
+import { getProductRequests } from '~/services/product.service';
 
 const ShopItems = ({ columns = 4, pageSize = 12 }) => {
     const Router = useRouter();
@@ -19,7 +20,22 @@ const ShopItems = ({ columns = 4, pageSize = 12 }) => {
         'col-xl-4 col-lg-4 col-md-3 col-sm-6 col-6'
     );
 
-    const { productItems, loading, getProducts } = useGetProducts();
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        try {
+            const fetchProducts = async () => {
+                const response = await getProductRequests()
+                setProducts(response.results)
+            };
+            fetchProducts();
+        } catch (error) {
+            console.error(error);
+        }
+    }, []);
+    console.log(products);
+
+    const { loading } = useGetProducts();
 
     function handleChangeViewMode(e) {
         e.preventDefault();
@@ -32,9 +48,7 @@ const ShopItems = ({ columns = 4, pageSize = 12 }) => {
 
     async function getTotalRecords(params) {
         const responseData = await ProductRepository.getTotalRecords();
-        if (responseData) {
-            setTotal(responseData);
-        }
+        console.log(responseData);
     }
 
     function handleSetColumns() {
@@ -75,16 +89,15 @@ const ShopItems = ({ columns = 4, pageSize = 12 }) => {
             };
         }
         getTotalRecords();
-        getProducts(params);
         handleSetColumns();
     }, [query]);
 
     // Views
     let productItemsView;
     if (!loading) {
-        if (productItems && productItems.length > 0) {
+        if (products && products.length > 0) {
             if (listView) {
-                const items = productItems.map((item) => (
+                const items = products.map((item) => (
                     <div className={classes} key={item.id}>
                         <Product product={item} />
                     </div>
@@ -95,7 +108,7 @@ const ShopItems = ({ columns = 4, pageSize = 12 }) => {
                     </div>
                 );
             } else {
-                productItemsView = productItems.map((item) => (
+                productItemsView = products.map((item) => (
                     <ProductWide product={item} />
                 ));
             }

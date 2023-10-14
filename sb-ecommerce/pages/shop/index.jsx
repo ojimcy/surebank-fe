@@ -50,7 +50,6 @@ const ShopDefaultPage = () => {
                     </div>
                 </div>
             </div>
-            <Newletters />
         </PageContainer>
     );
 };

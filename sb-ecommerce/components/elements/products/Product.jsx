@@ -11,7 +11,7 @@ const Product = ({ product }) => {
             <div className="ps-product__thumbnail">
                 <Link href="/product/[pid]" as={`/product/${product.id}`}>
                     <a>
-                        <img src={product.image} alt={product.title} />
+                        <img src={product.images} alt={product.name} />
                     </a>
                 </Link>
                 {badge(product)}
@@ -19,19 +19,20 @@ const Product = ({ product }) => {
             </div>
             <div className="ps-product__container">
                 <Link href="/shop">
-                    <a className="ps-product__vendor">Young Shop</a>
+                    <a className="ps-product__vendor">{product.brandId}</a>
                 </Link>
                 <div className="ps-product__content">
-                    {title(product)}
+                    {product.name}
                     <div className="ps-product__rating">
                         <Rating />
                         <span>02</span>
                     </div>
-                    {price(product)}
+                    {product.price}{' '}
+                    <del className="ml-2">{product.originalPrice}</del>
                 </div>
                 <div className="ps-product__content hover">
-                    {title(product)}
-                    {price(product)}
+                    {product.name}
+                    {product.price}
                 </div>
             </div>
         </div>

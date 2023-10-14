@@ -83,7 +83,7 @@ const ProductDefaultPage = () => {
                     <div className="ps-page__container">
                         <div className="ps-page__left">{productView}</div>
                         <div className="ps-page__right">
-                            <ProductWidgets />
+                            {/* <ProductWidgets /> */}
                         </div>
                     </div>
 
