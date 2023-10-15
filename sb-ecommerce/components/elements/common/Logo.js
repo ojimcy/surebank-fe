@@ -5,12 +5,12 @@ const Logo = ({ type }) => {
     let data;
     data = {
         url: '/',
-        img: '/static/img/logo_light.png',
+        img: '/static/img/sbLogo.png',
     };
     return (
         <Link href={data.url}>
             <a className="ps-logo">
-                Surebank
+                <img src={data.img} alt="" width='135px'/>
             </a>
         </Link>
     );

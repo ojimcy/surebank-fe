@@ -7,16 +7,16 @@ export default function Document() {
     return (
         <Html>
             <Head>
-                <link rel="shortcut icon" href={'/static/img/favi.png'} />
-                <link rel="icon" href={'/static/img/favi.png'} sizes="32x32" />
+                <link rel="shortcut icon" href={'/static/img/sbIcon.png'} />
+                <link rel="icon" href={'/static/img/sbIcon.png'} sizes="32x32" />
                 <link
                     rel="icon"
-                    href={'/static/img/favi.png'}
+                    href={'/static/img/sbIcon.png'}
                     sizes="192x192"
                 />
                 <link
                     rel="apple-touch-icon-precomposed"
-                    href={'/static/img/favi.png'}
+                    href={'/static/img/sbIcon.png'}
                 />
 
                 <link

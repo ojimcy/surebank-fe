@@ -6,6 +6,7 @@ import '~/public/static/fonts/Linearicons/Font/demo-files/demo.css';
 import '~/public/static/fonts/font-awesome/css/font-awesome.min.css';
 import '~/public/static/css/bootstrap.min.css';
 import '~/public/static/css/slick.min.css';
+import '~/public/static/css/styles.css';
 import '~/scss/style.scss';
 import '~/scss/home-default.scss';
 import '~/scss/market-place-1.scss';
@@ -31,7 +32,7 @@ function App({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <title>Surebank - React eCommerce Template</title>
+                <title>Surebank - Modern Ecommerce and Daily savings platform</title>
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta
                     name="viewport"
@@ -42,11 +43,11 @@ function App({ Component, pageProps }) {
                 <meta name="author" content="nouthemes" />
                 <meta
                     name="keywords"
-                    content="Surebank, React, eCommerce, Template"
+                    content="Surebank, Savings, eCommerce, Daily Contribution"
                 />
                 <meta
                     name="description"
-                    content="Surebank - React eCommerce Template"
+                    content="Surebank - Modern Ecommerce and Daily savings platform"
                 />
             </Head>
             <AuthProvider>

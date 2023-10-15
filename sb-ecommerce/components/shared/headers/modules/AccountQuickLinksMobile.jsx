@@ -19,6 +19,10 @@ const AccountQuickLinks = () => {
    };
     const accountLinks = [
         {
+            text: 'Dashboard',
+            url: '/account/user-dashboard',
+        },
+        {
             text: 'Account Information',
             url: '/account/user-information',
         },
