@@ -7,11 +7,12 @@ import ProductWidgets from '~/components/partials/product/ProductWidgets';
 import ProductDetailFullwidth from '~/components/elements/detail/ProductDetailFullwidth';
 import CustomerBought from '~/components/partials/product/CustomerBought';
 import RelatedProduct from '~/components/partials/product/RelatedProduct';
-import HeaderProduct from '~/components/shared/headers/HeaderProduct';
 import HeaderDefault from '~/components/shared/headers/HeaderDefault';
 import PageContainer from '~/components/layouts/PageContainer';
 import Newletters from '~/components/partials/commons/Newletters';
 import HeaderMobileProduct from '~/components/shared/header-mobile/HeaderMobileProduct';
+import { getProductById } from '~/services/product.service';
+import HeaderProduct from '~/components/shared/headers/HeaderProduct';
 
 const ProductDefaultPage = () => {
     const router = useRouter();
@@ -21,7 +22,7 @@ const ProductDefaultPage = () => {
 
     async function getProduct(pid) {
         setLoading(true);
-        const responseData = await ProductRepository.getProductsById(pid);
+        const responseData = await getProductById(pid);
         if (responseData) {
             setProduct(responseData);
             setTimeout(

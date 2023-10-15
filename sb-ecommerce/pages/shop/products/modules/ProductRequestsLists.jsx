@@ -152,7 +152,7 @@ const ProductRequestsLists = () => {
                                     />
                                 </td>
                                 <td>{request.price}</td>
-                                <td>{request.merchantId}</td>
+                                <td>{request.merchantId?.storeName}</td>
                                 <td>{request.status}</td>
                                 <td style={{ display: 'flex' }}>
                                     <Button
@@ -186,30 +186,6 @@ const ProductRequestsLists = () => {
                 onCancel={() => setConfirmModalVisible(false)}>
                 Do you want to approve the request for{' '}
                 {selectedRequest ? selectedRequest.storeName : ''}?
-            </Modal>
-
-            <Modal
-                title="Reject Request"
-                visible={rejectModalVisible}
-                onOk={handleConfirmReject}
-                onCancel={() => setRejectModalVisible(false)}>
-                <Form form={form}>
-                    <Form.Item
-                        label="Rejection Reason"
-                        name="reasons"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please provide a rejection reason',
-                            },
-                        ]}>
-                        <Input.TextArea
-                            rows={4}
-                            value={reasons}
-                            onChange={(e) => setReasons(e.target.value)}
-                        />
-                    </Form.Item>
-                </Form>
             </Modal>
 
             <Modal

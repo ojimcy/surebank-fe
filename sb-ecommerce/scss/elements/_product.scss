@@ -223,24 +223,24 @@
             }
         }
 
-        .ps-product__content {
-            @include hidden;
-            height: 0;
+        // .ps-product__content {
+        //     @include hidden;
+        //     // height: 0;
 
-            &.hover {
-                height: auto;
-                @include show;
-            }
-        }
+        //     &.hover {
+        //         // height: auto;
+        //         @include show;
+        //     }
+        // }
 
-        &.ps-product--inner {
-            border: none;
+        // &.ps-product--inner {
+        //     border: none;
 
-            .ps-product__content {
-                display: block;
-                @include show;
-            }
-        }
+        //     .ps-product__content {
+        //         display: block;
+        //         @include show;
+        //     }
+        // }
     }
 
     @include media('<sm') {

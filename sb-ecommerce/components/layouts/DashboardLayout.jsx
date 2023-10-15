@@ -46,6 +46,11 @@ const DashboardLayout = ({ children }) => {
             url: '/account/wishlist',
             icon: 'icon-heart',
         },
+        {
+            text: 'Products',
+            url: '/account/product-catalogue',
+            icon: 'icon-store',
+        },
     ];
 
     useEffect(() => {
