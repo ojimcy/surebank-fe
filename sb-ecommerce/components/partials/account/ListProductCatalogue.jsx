@@ -31,7 +31,6 @@ const ListProductCatalogue = () => {
     }, []);
 
     const handleShowDelete = (product) => {
-        console.log(product);
         setSelectedProduct(product);
         setShowDeleteModal(true);
     };
@@ -50,8 +49,6 @@ const ListProductCatalogue = () => {
         setSelectedProduct(product);
         setDetailsModal(false);
     };
-
-    console.log(selectedProduct);
 
     const handleDelete = async () => {
         try {

@@ -1,39 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { getProductById } from '~/services/product.service';
 
-const ModuleProductDetailSpecification = () => (
-    <div className="ps-product__specification">
-        <Link href="/page/blank">
-            <a className="report">Report Abuse</a>
-        </Link>
-        <p>
-            <strong>SKU:</strong> SF1133569600-1
-        </p>
-        <p className="categories">
-            <strong> Categories:</strong>
-            <Link href="/shop">
-                <a>Consumer Electronics</a>
+const ModuleProductDetailSpecification = ({ product }) => {
+    const [productInfo, setProductInfo] = useState([]);
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            const productData = await getProductById(product.productId.id);
+            setProductInfo(productData);
+        };
+        fetchProduct();
+    }, []);
+    return (
+        <div className="ps-product__specification">
+            <Link href="/page/blank">
+                <a className="report">Report Product</a>
             </Link>
-            <Link href="/shop">
-                <a>Refrigerator</a>
-            </Link>
-            <Link href="/shop">
-                <a>Babies & Moms</a>
-            </Link>
-        </p>
-        <p className="tags">
-            <strong> Tags</strong>
-            <Link href="/shop">
-                <a>sofa</a>
-            </Link>
-            <Link href="/shop">
-                <a>technologies</a>
-            </Link>
-            <Link href="/shop">
-                <a>wireless</a>
-            </Link>
-        </p>
-    </div>
-);
+            <p>
+                <strong>SKU:</strong> {productInfo.sku}
+            </p>
+            <p className="categories">
+                <strong> Categories:</strong>
+                <Link href="/shop">
+                    <a>{productInfo.categoryId?.name}</a>
+                </Link>
+            </p>
+            <p className="tags">
+                <strong> Tags</strong>
+                {productInfo && productInfo.tags?.map((tag, index) => (
+                    <Link href="/shop" key={index}>
+                        <a>{tag}</a>
+                    </Link>
+                ))}
+            </p>
+        </div>
+    );
+};
 
 export default ModuleProductDetailSpecification;

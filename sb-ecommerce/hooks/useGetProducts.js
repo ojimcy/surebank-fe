@@ -71,7 +71,7 @@ export default function useGetProducts() {
             }
         },
 
-        getProductById: async (payload) => {
+        getProductCatById: async (payload) => {
             setLoading(true);
             const responseData = await ProductRepository.getProductsById(
                 payload

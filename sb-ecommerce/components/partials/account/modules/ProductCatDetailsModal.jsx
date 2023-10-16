@@ -20,7 +20,7 @@ const ProductCatDetailsModal = ({
                     <div className="ps-product__thumbnail">
                         <Link
                             href="/product/[pid]"
-                            as={`/product/${selectedProduct.productId}`}>
+                            as={`/product/${selectedProduct.id}`}>
                             <a>
                                 <img
                                     src={selectedProduct.featuredImage}

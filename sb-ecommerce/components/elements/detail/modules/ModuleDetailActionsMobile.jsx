@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 const ModuleDetailActionsMobile = ({ ecomerce, product }) => {
     const { addItem } = useEcomerce();
     const Router = useRouter();
+    
     const handleAddItemToCart = (e) => {
         e.preventDefault();
         addItem({ id: product.id, quantity: 1 }, ecomerce.cartItems, 'cart');

@@ -84,6 +84,7 @@ const DashboardLayout = ({ children }) => {
                 message: 'Logout Successful',
                 duration: 300,
             });
+            router.push('/')
         } catch (error) {
             console.error(error);
         }

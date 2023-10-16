@@ -54,8 +54,19 @@ export const deleteProductCatalogue = async (productId) => {
     await axiosService.delete(`/products/catalogue/${productId}`);
 };
 
+export const getProductCatById = async (pid) => {
+    const response = await axiosService.get(`/products/catalogue/${pid}`);
+    return response.data;
+};
 
 export const getProductById = async (pid) => {
-    const response = await axiosService.get(`/products/catalogue/${pid}`);
+    const response = await axiosService.get(`/products/${pid}`);
+    return response.data;
+};
+
+export const getProductBySlug = async (collectionSlug) => {
+    const response = await axiosService.get(
+        `/products/collections?collectionSlug=${collectionSlug}`
+    );
     return response.data;
 };

@@ -14,18 +14,13 @@ class HeaderMobile extends Component {
             <header className="header header--mobile">
                 <div className="header__top">
                     <div className="header__left">
-                        <p>Welcome to Surebank Online Shopping Store !</p>
+                        <p>Welcome to Surebank Online Shopping Store!</p>
                     </div>
                     <div className="header__right">
                         <ul className="navigation__extra">
                             <li>
                                 <Link href="/vendor/become-a-vendor">
                                     <a>Sell on Surebank</a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/account/order-tracking">
-                                    <a>Tract your order</a>
                                 </Link>
                             </li>
                             <li>

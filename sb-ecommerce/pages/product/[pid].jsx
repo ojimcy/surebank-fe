@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import ProductRepository from '~/repositories/ProductRepository';
 import SkeletonProductDetail from '~/components/elements/skeletons/SkeletonProductDetail';
 import BreadCrumb from '~/components/elements/BreadCrumb';
 import ProductWidgets from '~/components/partials/product/ProductWidgets';
@@ -9,9 +8,8 @@ import CustomerBought from '~/components/partials/product/CustomerBought';
 import RelatedProduct from '~/components/partials/product/RelatedProduct';
 import HeaderDefault from '~/components/shared/headers/HeaderDefault';
 import PageContainer from '~/components/layouts/PageContainer';
-import Newletters from '~/components/partials/commons/Newletters';
 import HeaderMobileProduct from '~/components/shared/header-mobile/HeaderMobileProduct';
-import { getProductById } from '~/services/product.service';
+import { getProductCatById } from '~/services/product.service';
 import HeaderProduct from '~/components/shared/headers/HeaderProduct';
 
 const ProductDefaultPage = () => {
@@ -22,7 +20,7 @@ const ProductDefaultPage = () => {
 
     async function getProduct(pid) {
         setLoading(true);
-        const responseData = await getProductById(pid);
+        const responseData = await getProductCatById(pid);
         if (responseData) {
             setProduct(responseData);
             setTimeout(
@@ -84,7 +82,7 @@ const ProductDefaultPage = () => {
                     <div className="ps-page__container">
                         <div className="ps-page__left">{productView}</div>
                         <div className="ps-page__right">
-                            {/* <ProductWidgets /> */}
+                            <ProductWidgets />
                         </div>
                     </div>
 
@@ -95,7 +93,6 @@ const ProductDefaultPage = () => {
                     <RelatedProduct collectionSlug="shop-recommend-items" />
                 </div>
             </div>
-            <Newletters />
         </PageContainer>
     );
 };

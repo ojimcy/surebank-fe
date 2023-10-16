@@ -2,8 +2,10 @@ import React from 'react';
 import { Dropdown, Menu, notification } from 'antd';
 import Link from 'next/link';
 import { useAuth } from '~/context/authContext';
+import { useRouter } from 'next/router';
 
 const AccountQuickLinks = () => {
+    const router = useRouter()
     const {logout } = useAuth()
 
    const handleLogout = async () => {
@@ -13,6 +15,7 @@ const AccountQuickLinks = () => {
                message: 'Logout Successful',
                duration: 300,
            });
+           router.push('/')
        } catch (error) {
            console.error(error);
        }

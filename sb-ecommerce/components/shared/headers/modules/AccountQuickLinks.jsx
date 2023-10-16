@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import Link from 'next/link';
 import { useAuth } from '~/context/authContext';
 import { notification } from 'antd';
+import { useRouter } from 'next/router';
 
 const AccountQuickLinks = (props) => {
     const { logout, currentUser } = useAuth();
+    const router = useRouter()
 
     const handleLogout = async () => {
         try {
@@ -14,6 +16,7 @@ const AccountQuickLinks = (props) => {
                 message: 'Logout Successful',
                 duration: 300,
             });
+            router.push('/')
         } catch (error) {
             console.error(error);
         }

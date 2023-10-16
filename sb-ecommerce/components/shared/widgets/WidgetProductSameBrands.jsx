@@ -3,6 +3,7 @@ import { getProductsByCollectionHelper } from '~/utilities/strapi-fetch-data-hel
 import Product from '~/components/elements/products/Product';
 import { generateTempArray } from '~/utilities/common-helpers';
 import SkeletonProduct from '~/components/elements/skeletons/SkeletonProduct';
+import { getProductBySlug } from '~/services/product.service';
 
 const WidgetProductSameBrands = ({ collectionSlug }) => {
     const [productItems, setProductItems] = useState(null);
@@ -10,7 +11,7 @@ const WidgetProductSameBrands = ({ collectionSlug }) => {
 
     async function getProducts() {
         setLoading(true);
-        const responseData = await getProductsByCollectionHelper(
+        const responseData = await getProductBySlug(
             collectionSlug
         );
         if (responseData) {
@@ -27,7 +28,6 @@ const WidgetProductSameBrands = ({ collectionSlug }) => {
     useEffect(() => {
         getProducts();
     }, []);
-
     // Views
     let productItemsView;
     if (!loading) {

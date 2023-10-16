@@ -1,20 +1,22 @@
 import React from 'react';
 import Link from 'next/link';
 import Rating from '~/components/elements/Rating';
+import { formatNaira } from '~/utilities/formatNaira';
 
 const ModuleDetailTopInformation = ({ product }) => {
     // Views
     let priceView;
-
     if (product.is_sale) {
         priceView = (
             <h4 className="ps-product__price sale">
-                <del className="mr-2">&{product.sale_price}</del>$
-                {product.price}
+                <del className="mr-2">&{formatNaira(product.salesPrice)}</del>
+                {formatNaira(product.price)}
             </h4>
         );
     } else {
-        priceView = <h4 className="ps-product__price">${product.price}</h4>;
+        priceView = (
+            <h4 className="ps-product__price">{formatNaira(product.price)}</h4>
+        );
     }
     return (
         <header>
@@ -23,7 +25,7 @@ const ModuleDetailTopInformation = ({ product }) => {
                 <p>
                     Brand:
                     <Link href="/shop">
-                        <a className="ml-2 text-capitalize">{product.vendor}</a>
+                        <a className="ml-2 text-capitalize">{product.brand}</a>
                     </Link>
                 </p>
                 <div className="ps-product__rating">
