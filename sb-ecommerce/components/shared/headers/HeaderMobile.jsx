@@ -37,8 +37,8 @@ class HeaderMobile extends Component {
                         <Link href="/">
                             <a className="ps-logo">
                                 <img
-                                    src="/static/img/logo_light.png"
-                                    alt="surebank"
+                                    src="/static/img/sbLogo.png"
+                                    alt="surebank" width='135px'
                                 />
                             </a>
                         </Link>

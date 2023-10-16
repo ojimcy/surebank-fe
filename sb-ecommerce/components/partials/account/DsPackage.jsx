@@ -82,7 +82,7 @@ const DSPackages = ({ packages }) => {
                 ))
             ) : (
                 <Result status="warning" title="No product Found." >
-                    <a className='ps-btn' href='/account/create-package'>Create one</a>
+                    <a className='ps-btn' href='/account/packages/create-ds-package'>Create one</a>
                 </Result>
             )}
 

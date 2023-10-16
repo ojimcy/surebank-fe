@@ -3,7 +3,6 @@ import React from 'react';
 import BreadCrumb from '~/components/elements/BreadCrumb';
 import FooterDefault from '~/components/shared/footers/FooterDefault';
 import PageContainer from '~/components/layouts/PageContainer';
-import Newletters from '~/components/partials/commons/Newletters';
 import Dashboard from '~/components/partials/account/UserDashboard';
 
 const UserDashboard = () => {
@@ -23,7 +22,6 @@ const UserDashboard = () => {
                 <BreadCrumb breacrumb={breadCrumb} />
                 <Dashboard />
             </div>
-            <Newletters layout="container" />
         </PageContainer>
     );
 };
