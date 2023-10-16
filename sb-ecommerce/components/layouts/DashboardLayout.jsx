@@ -82,7 +82,7 @@ const DashboardLayout = ({ children }) => {
             await logout();
             notification.success({
                 message: 'Logout Successful',
-                duration: 300,
+                duration: 200,
             });
             router.push('/')
         } catch (error) {

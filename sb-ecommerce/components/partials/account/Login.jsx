@@ -29,12 +29,14 @@ const Login = () => {
             await login(values.username, values.password);
             notification.success({
                 message: 'Login Successfull!',
+                duration: 200,
             });
             Router.push('/');
         } catch (error) {
             notification.error({
                 message: 'Login Failed',
                 description: error.message,
+                duration: 200,
             });
         } finally {
             setSubmitting(false);

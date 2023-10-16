@@ -5,21 +5,22 @@ import { useAuth } from '~/context/authContext';
 import { useRouter } from 'next/router';
 
 const AccountQuickLinks = () => {
-    const router = useRouter()
-    const {logout } = useAuth()
+    const router = useRouter();
+    const { logout } = useAuth();
+    const { currentUser } = useAuth();
 
-   const handleLogout = async () => {
-       try {
-           await logout();
-           notification.success({
-               message: 'Logout Successful',
-               duration: 300,
-           });
-           router.push('/')
-       } catch (error) {
-           console.error(error);
-       }
-   };
+    const handleLogout = async () => {
+        try {
+            await logout();
+            notification.success({
+                message: 'Logout Successful',
+                duration: 200,
+            });
+            router.push('/');
+        } catch (error) {
+            console.error(error);
+        }
+    };
     const accountLinks = [
         {
             text: 'Dashboard',
@@ -50,6 +51,17 @@ const AccountQuickLinks = () => {
             url: '/account/wishlist',
         },
     ];
+
+    if (currentUser && currentUser.role !== 'user') {
+        accountLinks.push({
+            text: 'View Products',
+            url: '/shop/products/all-requests',
+        });
+        accountLinks.push({
+            text: 'Products',
+            url: '/account/products',
+        });
+    }
 
     const menu = (
         <Menu>

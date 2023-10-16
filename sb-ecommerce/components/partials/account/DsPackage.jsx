@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Button, Progress, notification } from 'antd';
+import { Card, Button, Progress, notification, Result } from 'antd';
 import { formatDate, formatNaira } from '~/utilities/formatNaira';
 import DepositModal from './modules/DepositModal';
 import { makeContribution } from '~/services/package.service';
@@ -50,32 +50,41 @@ const DSPackages = ({ packages }) => {
 
     return (
         <div className="packagesContainer">
-            {packages.map((p) => (
-                <Card key={p.id} className="packageCard">
-                    <h4 className="text-center">{p.target}</h4>
-                    <p>
-                        Total Contribution: {formatNaira(p.totalContribution)}
-                    </p>
-                    <p>Target Amount: {formatNaira(p.amountPerDay)} / Day</p>
-                    <p>Start Date: {formatDate(p.startDate)}</p>
-                    <Progress
-                        percent={((p.totalCount / 31) * 100).toFixed(2)}
-                        status="active"
-                        showInfo
-                    />
-                    <div className="buttonsContainer">
-                        <Button type="danger" className="transferButton">
-                            Transfer
-                        </Button>
-                        <Button
-                            type="success"
-                            className="depositButton"
-                            onClick={() => handleOpenDepositModal(p)}>
-                            Deposit
-                        </Button>
-                    </div>
-                </Card>
-            ))}
+            {packages && packages.length !== 0 ? (
+                packages.map((p) => (
+                    <Card key={p.id} className="packageCard">
+                        <h4 className="text-center">{p.target}</h4>
+                        <p>
+                            Total Contribution:{' '}
+                            {formatNaira(p.totalContribution)}
+                        </p>
+                        <p>
+                            Target Amount: {formatNaira(p.amountPerDay)} / Day
+                        </p>
+                        <p>Start Date: {formatDate(p.startDate)}</p>
+                        <Progress
+                            percent={((p.totalCount / 31) * 100).toFixed(2)}
+                            status="active"
+                            showInfo
+                        />
+                        <div className="buttonsContainer">
+                            <Button type="danger" className="transferButton">
+                                Transfer
+                            </Button>
+                            <Button
+                                type="success"
+                                className="depositButton"
+                                onClick={() => handleOpenDepositModal(p)}>
+                                Deposit
+                            </Button>
+                        </div>
+                    </Card>
+                ))
+            ) : (
+                <Result status="warning" title="No product Found." >
+                    <a className='ps-btn' href='/account/create-package'>Create one</a>
+                </Result>
+            )}
 
             {selectedPackage && (
                 <DepositModal

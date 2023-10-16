@@ -7,16 +7,16 @@ import { useRouter } from 'next/router';
 
 const AccountQuickLinks = (props) => {
     const { logout, currentUser } = useAuth();
-    const router = useRouter()
+    const router = useRouter();
 
     const handleLogout = async () => {
         try {
             await logout();
             notification.success({
                 message: 'Logout Successful',
-                duration: 300,
+                duration: 200,
             });
-            router.push('/')
+            router.push('/');
         } catch (error) {
             console.error(error);
         }
@@ -51,14 +51,17 @@ const AccountQuickLinks = (props) => {
             url: '/account/wishlist',
         },
     ];
-    
-     if (currentUser && currentUser.role !== 'user') {
-         accountLinks.push({
-             text: 'View Products',
-             url: '/shop/products/all-requests',
-         });
-     }
 
+    if (currentUser && currentUser.role !== 'user') {
+        accountLinks.push({
+            text: 'View Products',
+            url: '/shop/products/all-requests',
+        });
+        accountLinks.push({
+            text: 'Products',
+            url: '/account/products',
+        });
+    }
 
     // View
     const linksView = accountLinks.map((item) => (

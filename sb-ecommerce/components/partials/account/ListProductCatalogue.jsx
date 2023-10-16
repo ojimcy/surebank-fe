@@ -89,9 +89,7 @@ const ListProductCatalogue = () => {
             <DashboardLayout>
                 <div className="ps-form__header d-flex justify-content-between align-item-center mb-5">
                     <h3>Product Catalogue</h3>
-                    <a href="/account/create-product-catalogue">
-                        Add new product
-                    </a>
+                    <a href="/account/create-catalogue">Add new product</a>
                 </div>
                 {products && products.length > 0 ? (
                     <table className="table  ps-table--shopping-cart table-responsive">
