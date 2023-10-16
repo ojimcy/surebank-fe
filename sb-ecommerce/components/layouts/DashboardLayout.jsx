@@ -48,7 +48,7 @@ const DashboardLayout = ({ children }) => {
         },
         {
             text: 'Products',
-            url: '/account/product-catalogue',
+            url: '/account/products',
             icon: 'icon-store',
         },
     ];

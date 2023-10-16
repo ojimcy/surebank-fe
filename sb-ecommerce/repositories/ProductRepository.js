@@ -1,9 +1,10 @@
 import Repository, { baseUrl, serializeQuery } from './Repository';
+import axiosService from './axiosService';
 
 class ProductRepository {
     async getRecords(params) {
-        const response = await Repository.get(
-            `${baseUrl}/products?${serializeQuery(params)}`
+        const response = await axiosService.get(
+            `${baseUrl}/products/ids?${serializeQuery(params)}`
         )
             .then((response) => {
                 return response.data;
@@ -13,7 +14,7 @@ class ProductRepository {
     }
 
     async getProducts(params) {
-        const response = await Repository.get(
+        const response = await axiosService.get(
             `${baseUrl}/product?${serializeQuery(params)}`
         )
             .then((response) => {
@@ -32,7 +33,7 @@ class ProductRepository {
     }
 
     async getBrands() {
-        const response = await Repository.get(`${baseUrl}/brands`)
+        const response = await axiosService.get(`${baseUrl}/brands`)
             .then((response) => {
                 return response.data;
             })
@@ -41,7 +42,7 @@ class ProductRepository {
     }
 
     async getProductCategories() {
-        const response = await Repository.get(`${baseUrl}/product-categories`)
+        const response = await axiosService.get(`${baseUrl}/product-categories`)
             .then((response) => {
                 return response.data;
             })
@@ -50,7 +51,7 @@ class ProductRepository {
     }
 
     async getTotalRecords() {
-        const response = await Repository.get(`${baseUrl}/products/count`)
+        const response = await axiosService.get(`${baseUrl}/products/count`)
             .then((response) => {
                 return response.data;
             })
@@ -59,7 +60,7 @@ class ProductRepository {
     }
 
     async getProductsById(payload) {
-        const response = await Repository.get(`${baseUrl}/products/${payload}`)
+        const response = await axiosService.get(`${baseUrl}/products/${payload}`)
             .then((response) => {
                 return response.data;
             })
@@ -68,7 +69,7 @@ class ProductRepository {
     }
 
     async getProductsByCategory(payload) {
-        const response = await Repository.get(
+        const response = await axiosService.get(
             `${baseUrl}/product-categories?slug=${payload}`
         )
             .then((response) => {
@@ -87,7 +88,7 @@ class ProductRepository {
     }
 
     async getProductsByBrand(payload) {
-        const response = await Repository.get(
+        const response = await axiosService.get(
             `${baseUrl}/brands?slug=${payload}`
         )
             .then((response) => {
@@ -106,8 +107,8 @@ class ProductRepository {
     }
 
     async getProductsByIds(payload) {
-        const endPoint = `${baseUrl}/products?${payload}`;
-        const response = await Repository.get(endPoint)
+        const endPoint = `${baseUrl}/products/ids?${payload}`;
+        const response = await axiosService.get(endPoint)
             .then((response) => {
                 if (response.data && response.data.length > 0) {
                     return response.data;

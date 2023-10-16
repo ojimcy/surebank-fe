@@ -41,7 +41,6 @@ export default function CreatePackage() {
                 const account = await axiosService.get(
                     `/account/${currentUser.id}`
                 );
-                console.log(account);
                 setUserAccount(account.data.data);
             };
             fetchUserAccount();
