@@ -15,7 +15,7 @@ class ProductRepository {
 
     async getProducts(params) {
         const response = await axiosService.get(
-            `${baseUrl}/product?${serializeQuery(params)}`
+            `${baseUrl}/products?${serializeQuery(params)}`
         )
             .then((response) => {
                 if (response.data && response.data.length > 0) {
