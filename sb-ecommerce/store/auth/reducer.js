@@ -6,7 +6,7 @@ export const initState = {
 
 function reducer(state = initState, actions) {
     switch (actions.type) {
-        case actionTypes.LOGIN_SUCCESS:
+        case actionTypes.LOGIN_USER_SUCCESS:
             return {
                 ...state,
                 ...{ isLoggedIn: true },

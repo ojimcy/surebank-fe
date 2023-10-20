@@ -20,7 +20,7 @@ const modalWarning = type => {
 function* loginSaga() {
     try {
         yield put(loginSuccess());
-        modalSuccess('success');z
+        modalSuccess('success');
     } catch (err) {
         console.log(err);
     }
@@ -36,6 +36,6 @@ function* logOutSaga() {
 }
 
 export default function* rootSaga() {
-    yield all([takeEvery(actionTypes.LOGIN_REQUEST, loginSaga)]);
+    yield all([takeEvery(actionTypes.LOGIN_USER, loginSaga)]);
     yield all([takeEvery(actionTypes.LOGOUT, logOutSaga)]);
 }
