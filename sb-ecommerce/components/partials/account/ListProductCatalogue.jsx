@@ -89,13 +89,15 @@ const ListProductCatalogue = () => {
             <DashboardLayout>
                 <div className="ps-form__header d-flex justify-content-between align-item-center mb-5">
                     <h3>Product Catalogue</h3>
-                    <a href="/account/create-catalogue">Add new product</a>
+                    <a href="/account/products/create-catalogue">
+                        Add new product
+                    </a>
                 </div>
                 {products && products.length > 0 ? (
                     <table className="table  ps-table--shopping-cart table-responsive">
                         <thead>
                             <tr>
-                                <th>Title</th>
+                                <th>Name</th>
                                 <th>Price</th>
                                 <th>Sales Price</th>
                                 <th>Quantity</th>
@@ -106,11 +108,11 @@ const ListProductCatalogue = () => {
                             {products.map((product) => (
                                 <tr key={product.id}>
                                     <td>
-                                        {product.title}{' '}
+                                        {product.name}{' '}
                                         <img
                                             style={{ width: '50px' }}
                                             src={product.featuredImage}
-                                            alt={product.title}
+                                            alt={product.name}
                                         />
                                     </td>
                                     <td>{product.price}</td>

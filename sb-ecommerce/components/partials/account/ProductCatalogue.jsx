@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import DashboardLayout from '~/components/layouts/DashboardLayout';
 import {
     createProductCatalogue,
-    getProducts,
+    getProductCatalogue,
 } from '~/services/product.service';
 
 const AddProductCatalogue = () => {
@@ -16,7 +16,7 @@ const AddProductCatalogue = () => {
     useEffect(() => {
         try {
             const fetchProducts = async () => {
-                const results = await getProducts();
+                const results = await getProductCatalogue();
                 setProducts(results.results);
             };
             fetchProducts();

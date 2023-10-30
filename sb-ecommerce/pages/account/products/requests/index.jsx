@@ -1,6 +1,6 @@
 import React from 'react';
 import PageContainer from '~/components/layouts/PageContainer';
-import ProductRequestsLists from '../modules/ProductRequestsLists';
+import ProductRequestsLists from '../../../shop/products/modules/ProductRequestsLists';
 
 const ProductRequests = () => {
     return (

@@ -54,10 +54,6 @@ const AccountQuickLinks = (props) => {
 
     if (currentUser && currentUser.role !== 'user') {
         accountLinks.push({
-            text: 'View Products',
-            url: '/shop/products/all-requests',
-        });
-        accountLinks.push({
             text: 'Products',
             url: '/account/products',
         });

@@ -6,11 +6,15 @@ import PageContainer from '~/components/layouts/PageContainer';
 import Newletters from '~/components/partials/commons/Newletters';
 import AddProductCatalogue from '~/components/partials/account/ProductCatalogue';
 
-const ProductCatalugue = () => {
+const CreateProductCatalugue = () => {
     const breadCrumb = [
         {
             text: 'Home',
             url: '/',
+        },
+        {
+            text: 'Products',
+            url: '/account/products',
         },
         {
             text: 'Product Catalogue',
@@ -28,4 +32,4 @@ const ProductCatalugue = () => {
     );
 };
 
-export default ProductCatalugue;
+export default CreateProductCatalugue;

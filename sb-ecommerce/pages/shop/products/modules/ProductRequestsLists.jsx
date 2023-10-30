@@ -6,6 +6,7 @@ import {
     rejectProductRequests,
 } from '~/services/product.service';
 import ProductDetailsModal from './ProductRequestDetailModal';
+import DashboardLayout from '~/components/layouts/DashboardLayout';
 
 const ProductRequestsLists = () => {
     const [requests, setRequests] = useState([]);
@@ -126,51 +127,52 @@ const ProductRequestsLists = () => {
             form.resetFields();
         }
     };
-
     return (
         <>
-            {requests && requests.length > 0 ? (
-                <table className="table  ps-table--shopping-cart table-responsive">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th> Merchant</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {requests.map((request) => (
-                            <tr key={request.id}>
-                                <td>
-                                    {request.name}{' '}
-                                    <img
-                                        style={{ width: '50px' }}
-                                        src={request.images}
-                                        alt={request.name}
-                                    />
-                                </td>
-                                <td>{request.price}</td>
-                                <td>{request.merchantId?.storeName}</td>
-                                <td>{request.status}</td>
-                                <td style={{ display: 'flex' }}>
-                                    <Button
-                                        className="mr-2"
-                                        type="primary"
-                                        onClick={() =>
-                                            handleShowDetails(request)
-                                        }>
-                                        View Details
-                                    </Button>
-                                </td>
+            <DashboardLayout>
+                {requests && requests.length > 0 ? (
+                    <table className="table  ps-table--shopping-cart table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th> Merchant</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
-                <Result status="warning" title="No product in cart." />
-            )}
+                        </thead>
+                        <tbody>
+                            {requests.map((request) => (
+                                <tr key={request.id}>
+                                    <td>
+                                        {request.name}{' '}
+                                        <img
+                                            style={{ width: '50px' }}
+                                            src={request.images}
+                                            alt={request.name}
+                                        />
+                                    </td>
+                                    <td>{request.price}</td>
+                                    <td>{request.merchantId?.storeName}</td>
+                                    <td>{request.status}</td>
+                                    <td style={{ display: 'flex' }}>
+                                        <Button
+                                            className="mr-2"
+                                            type="primary"
+                                            onClick={() =>
+                                                handleShowDetails(request)
+                                            }>
+                                            View Details
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <Result status="warning" title="No product in cart." />
+                )}
+            </DashboardLayout>
 
             <ProductDetailsModal
                 confirmModalVisible={detailsModal}
