@@ -3,11 +3,27 @@ import Link from 'next/link';
 import SkeletonProduct from '~/components/elements/skeletons/SkeletonProduct';
 import { generateTempArray } from '~/utilities/common-helpers';
 import { ProductGroupWithCarousel } from '~/components/partials/product/ProductGroupWithCarousel';
-import useGetProducts from '~/hooks/useGetProducts';
+import { getProductBySlug } from '~/services/product.service';
 
 const HomeDefaultProductListing = ({ collectionSlug, title }) => {
     const [currentCollection, setCurrentCollection] = useState('new-arrivals');
-    const { productItems, loading, getProductsByCollection } = useGetProducts();
+     const [loading, setLoading] = useState(false);
+     const [productItems, setProductItems] = useState(null);
+
+     async function getProducts() {
+         setLoading(true);
+         const responseData = await getProductBySlug(collectionSlug);
+         if (responseData) {
+             setProductItems(responseData);
+             setTimeout(
+                 function () {
+                     setLoading(false);
+                 }.bind(this),
+                 250
+             );
+         }
+     }
+
     const sectionLinks = [
         {
             title: 'New Arrivals',
@@ -29,11 +45,11 @@ const HomeDefaultProductListing = ({ collectionSlug, title }) => {
     function handleChangeTab(e, tab) {
         e.preventDefault();
         setCurrentCollection(tab.name);
-        getProductsByCollection(tab.slug);
+        getProducts(tab.slug);
     } 
 
     useEffect(() => {
-        getProductsByCollection(collectionSlug);
+        getProducts(collectionSlug);
     }, [collectionSlug]);
 
     const sectionLinksView = sectionLinks.map((link) => (

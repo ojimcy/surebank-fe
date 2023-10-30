@@ -15,7 +15,7 @@ const ProductDealOfDay = ({ product }) => {
             <div className="ps-product__thumbnail">
                 <Link href="/product/[pid]" as={`/product/${product.id}`}>
                     <LazyLoad>
-                        <img src={product.image} alt={product.title} />
+                        <img src={product.images[0]} alt={product.title} />
                     </LazyLoad>
                 </Link>
                 {badge(product)}
@@ -23,14 +23,16 @@ const ProductDealOfDay = ({ product }) => {
             </div>
             <div className="ps-product__container">
                 <Link href="/shop">
-                    <a className="ps-product__vendor">Young </a>
+                    <a className="ps-product__vendor">
+                        {product.merchantId.storeName}{' '}
+                    </a>
                 </Link>
                 <div className="ps-product__content">
                     {StrapiProductPriceExpanded(product)}
                     {title(product)}
                     <div className="ps-product__rating">
                         <Rating />
-                        <span>{product.ratingCount}</span>
+                        <span>{product.reviews.rating}</span>
                     </div>
                     <ModuleProductProgressbar product={product} />
                 </div>

@@ -30,7 +30,6 @@ const HomepageDefaultPage = () => {
                     collectionSlug="garden-and-kitchen"
                     title="Garden & Kitchen"
                 />
-                <HomeAds />
                 <NewArrivals collectionSlug="new-arrivals" />
             </main>
         </PageContainer>

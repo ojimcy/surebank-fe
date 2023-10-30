@@ -1,12 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import ProductHorizontal from '~/components/elements/products/ProductHorizontal';
-import useGetProducts from '~/hooks/useGetProducts';
+import { getProductBySlug } from '~/services/product.service';
 
 const NewArrivals = ({ collectionSlug }) => {
-    const { productItems, loading, getProductsByCollection } = useGetProducts();
+     const [loading, setLoading] = useState(false);
+     const [productItems, setProductItems] = useState(null);
+
+     async function getProducts() {
+         setLoading(true);
+         const responseData = await getProductBySlug(collectionSlug);
+         if (responseData) {
+             setProductItems(responseData);
+             setTimeout(
+                 function () {
+                     setLoading(false);
+                 }.bind(this),
+                 250
+             );
+         }
+     }
     useEffect(() => {
-        getProductsByCollection(collectionSlug);
+        getProducts(collectionSlug);
     }, [collectionSlug]);
 
     // Views

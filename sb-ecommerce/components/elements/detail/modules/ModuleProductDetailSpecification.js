@@ -4,10 +4,9 @@ import { getProductById } from '~/services/product.service';
 
 const ModuleProductDetailSpecification = ({ product }) => {
     const [productInfo, setProductInfo] = useState([]);
-
     useEffect(() => {
         const fetchProduct = async () => {
-            const productData = await getProductById(product.productId.id);
+            const productData = await getProductById(product.id);
             setProductInfo(productData);
         };
         fetchProduct();

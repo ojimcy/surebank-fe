@@ -5,13 +5,13 @@ import useProduct from '~/hooks/useProduct';
 import Rating from '~/components/elements/Rating';
 
 const Product = ({ product }) => {
-    const { thumbnailImage, price, badge, title } = useProduct();
+    const {  badge } = useProduct();
     return (
         <div className="ps-product">
             <div className="ps-product__thumbnail">
                 <Link href="/product/[pid]" as={`/product/${product.id}`}>
                     <a>
-                        <img src={product.images} alt={product.name} />
+                        <img src={product.images[0]} alt={product.name} />
                     </a>
                 </Link>
                 {badge(product)}
@@ -19,13 +19,13 @@ const Product = ({ product }) => {
             </div>
             <div className="ps-product__container">
                 <Link href="/shop">
-                    <a className="ps-product__vendor">{product.brandId}</a>
+                    <a className="ps-product__vendor">{product.merchantId.storeName}</a>
                 </Link>
                 <div className="ps-product__content">
                     {product.name}
                     <div className="ps-product__rating">
                         <Rating />
-                        <span>02</span>
+                        <span>{product.reviews.rating}</span>
                     </div>
                     {product.price}{' '}
                     <del className="ml-2">{product.originalPrice}</del>
