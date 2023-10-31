@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ProductRepository from '~/repositories/ProductRepository';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { getCategories } from '~/services/product.service';
 
 const WidgetShopCategories = () => {
     const Router = useRouter();
@@ -10,9 +11,9 @@ const WidgetShopCategories = () => {
 
     const { slug } = Router.query;
 
-    async function getCategories() {
+    async function getProductCategories() {
         setLoading(true);
-        const responseData = await ProductRepository.getProductCategories();
+        const responseData = await getCategories();
         if (responseData) {
             setCategories(responseData);
             setTimeout(
@@ -25,9 +26,8 @@ const WidgetShopCategories = () => {
     }
 
     useEffect(() => {
-        getCategories();
+        getProductCategories();
     }, []);
-
     // Views
     let categoriesView;
     if (!loading) {

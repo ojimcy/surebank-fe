@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { generateTempArray } from '~/utilities/common-helpers';
 import SkeletonProduct from '~/components/elements/skeletons/SkeletonProduct';
 import useGetProducts from '~/hooks/useGetProducts';
-import { getProductRequests } from '~/services/product.service';
+import { getProductCatalogue } from '~/services/product.service';
 
 const ShopItems = ({ columns = 4, pageSize = 12 }) => {
     const Router = useRouter();
@@ -25,7 +25,7 @@ const ShopItems = ({ columns = 4, pageSize = 12 }) => {
     useEffect(() => {
         try {
             const fetchProducts = async () => {
-                const response = await getProductRequests()
+                const response = await getProductCatalogue();
                 setProducts(response.results)
             };
             fetchProducts();
@@ -33,7 +33,6 @@ const ShopItems = ({ columns = 4, pageSize = 12 }) => {
             console.error(error);
         }
     }, []);
-    console.log(products);
 
     const { loading } = useGetProducts();
 

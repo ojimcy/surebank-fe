@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import SkeletonProduct from '~/components/elements/skeletons/SkeletonProduct';
 import { generateTempArray } from '~/utilities/common-helpers';
@@ -6,7 +6,7 @@ import Product from '~/components/elements/products/Product';
 import { carouselStandard } from '~/utilities/carousel-helpers';
 import NextArrow from '~/components/elements/carousel/NextArrow';
 import PrevArrow from '~/components/elements/carousel/PrevArrow';
-import useGetProducts from '~/hooks/useGetProducts';
+import { getProductBySlug } from '~/services/product.service';
 
 const ProductGroupByCarousel = ({
     collectionSlug,
@@ -14,10 +14,25 @@ const ProductGroupByCarousel = ({
     layout = 'standard',
 }) => {
     const sliderRef = useRef(null);
-    const { productItems, loading, getProductsByCollection } = useGetProducts();
+    const [loading, setLoading] = useState(false);
+    const [productItems, setProductItems] = useState(null);
+
+    async function getProducts() {
+        setLoading(true);
+        const responseData = await getProductBySlug(collectionSlug);
+        if (responseData) {
+            setProductItems(responseData);
+            setTimeout(
+                function () {
+                    setLoading(false);
+                }.bind(this),
+                250
+            );
+        }
+    }
 
     useEffect(() => {
-        getProductsByCollection(collectionSlug);
+        getProducts(collectionSlug);
     }, [collectionSlug]);
 
     const handleCarouselPrev = (e) => {
@@ -29,10 +44,6 @@ const ProductGroupByCarousel = ({
         e.preventDefault();
         sliderRef.current.slickNext();
     };
-
-    useEffect(() => {
-        getProductsByCollection(collectionSlug);
-    }, [collectionSlug]);
 
     const carouselFullwidth = {
         dots: false,

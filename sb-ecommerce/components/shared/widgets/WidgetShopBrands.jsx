@@ -4,29 +4,20 @@ import Link from 'next/link';
 import { Checkbox } from 'antd';
 import { Radio, Input } from 'antd';
 import { useRouter } from 'next/router';
+import { getBrands } from '~/services/product.service';
 
 const WidgetShopBrands = () => {
     const Router = useRouter();
-    const { slug } = Router.query;
     const [brands, setBrands] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    async function getCategories() {
-        setLoading(true);
-        const responseData = await ProductRepository.getBrands();
-        if (responseData) {
-            let brandsGroup = [];
-            if (responseData.length > 0) {
-                responseData.forEach((brand) => {
-                    brandsGroup.push({
-                        id: brand.id,
-                        value: brand.slug,
-                        label: brand.name,
-                    });
-                });
-            }
-            setBrands(brandsGroup);
+    const { slug } = Router.query;
 
+    async function getProductBrands() {
+        setLoading(true);
+        const responseData = await getBrands();
+        if (responseData) {
+            setBrands(responseData.results);
             setTimeout(
                 function () {
                     setLoading(false);
@@ -36,14 +27,13 @@ const WidgetShopBrands = () => {
         }
     }
 
+    useEffect(() => {
+        getProductBrands();
+    }, []);
+
     function handleSelectBrand(e) {
         Router.push(`/brand/${e.target.value}`);
     }
-
-    useEffect(() => {
-        getCategories();
-    }, []);
-
     // Views
     let brandsView;
     if (!loading) {

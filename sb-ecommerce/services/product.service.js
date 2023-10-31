@@ -6,7 +6,7 @@ export const getBrands = async () => {
 };
 
 export const getCategories = async () => {
-    const response = await axiosService.get('/store/category');
+    const response = await axiosService.get('/store/categories');
     return response.data;
 };
 
