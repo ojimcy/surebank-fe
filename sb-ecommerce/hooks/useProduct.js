@@ -45,12 +45,23 @@ export default function useProduct() {
     return {
         thumbnailImage: (payload) => {
             if (payload) {
-                if (payload.image) {
+                if (payload.featuredImage) {
                     return (
                         <>
                             <LazyLoad>
                                 <img
-                                    src={getImageURL(payload.image)}
+                                    src={payload.featuredImage}
+                                    alt={getImageURL(payload.title)}
+                                />
+                            </LazyLoad>
+                        </>
+                    );
+                } else if (payload.images) {
+                    return (
+                        <>
+                            <LazyLoad>
+                                <img
+                                    src={payload.images[0]}
                                     alt={getImageURL(payload.title)}
                                 />
                             </LazyLoad>
@@ -61,14 +72,14 @@ export default function useProduct() {
         },
         price: (payload) => {
             let view;
-            if (payload.orignalPrice) {
+            if (payload.salesPrice) {
                 view = (
                     <p className="ps-product__price sale">
                         <span>$</span>
-                        {formatCurrency(payload.orignalPrice)}
+                        {formatCurrency(payload.salesPrice)}
                         <del className="ml-2">
                             <span>$</span>
-                            {formatCurrency(payload.orignalPrice)}
+                            {formatCurrency(payload.salesPrice)}
                         </del>
                     </p>
                 );
@@ -143,10 +154,9 @@ export default function useProduct() {
                     }
                 });
             }
-            if (payload.originalPrice) {
+            if (payload.salesPrice) {
                 const discountPercent = (
-                    ((payload.originalPrice - payload.price) /
-                        payload.price) *
+                    ((payload.salesPrice - payload.price) / payload.price) *
                     100
                 ).toFixed(0);
                 return (

@@ -12,7 +12,6 @@ const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
             getProducts(ecomerce.cartItems, 'cart');
         }
     }, [ecomerce]);
-
     // view
     let listItemsView, shippingView, totalView;
     let amount;

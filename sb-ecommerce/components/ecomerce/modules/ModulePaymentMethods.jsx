@@ -23,8 +23,8 @@ const ModulePaymentMethods = () => {
                     <Radio.Group
                         onChange={(e) => handleChangeMethod(e)}
                         value={method}>
-                        <Radio value={1}>Visa / Master Card</Radio>
-                        <Radio value={2}>Paypal</Radio>
+                        <Radio value={1}>Cards</Radio>
+                        <Radio value={2}>SB Account</Radio>
                     </Radio.Group>
                 </div>
                 <div className="ps-block__content">

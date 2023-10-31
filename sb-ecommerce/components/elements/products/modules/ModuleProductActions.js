@@ -23,17 +23,6 @@ const ModuleProductActions = ({ product, ecomerce }) => {
         modal.update;
     }
 
-    function handleAddItemToCompare(e) {
-        e.preventDefault();
-        addItem({ id: product.id }, ecomerce.compareItems, 'compare');
-        const modal = Modal.success({
-            centered: true,
-            title: 'Success!',
-            content: `This product has been added to your compare listing!`,
-        });
-        modal.update;
-    }
-
     const handleShowQuickView = (e) => {
         e.preventDefault();
         setIsQuickView(true);
@@ -73,16 +62,6 @@ const ModuleProductActions = ({ product, ecomerce }) => {
                     title="Add to wishlist"
                     onClick={handleAddItemToWishlist}>
                     <i className="icon-heart"></i>
-                </a>
-            </li>
-            <li>
-                <a
-                    href="#"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Compare"
-                    onClick={handleAddItemToCompare}>
-                    <i className="icon-chart-bars"></i>
                 </a>
             </li>
             <Modal

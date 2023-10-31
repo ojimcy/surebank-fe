@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import BreadCrumb from '~/components/elements/BreadCrumb';
 import PageContainer from '~/components/layouts/PageContainer';
 import FooterDefault from '~/components/shared/footers/FooterDefault';
-import Newletters from '~/components/partials/commons/Newletters';
 import { connect } from 'react-redux';
 import useEcomerce from '~/hooks/useEcomerce';
 import ModuleEcomerceCartItems from '~/components/ecomerce/modules/ModuleEcomerceCartItems';
@@ -44,29 +43,6 @@ const ShoppingCartScreen = ({ ecomerce }) => {
                     </div>
                     <div className="ps-section__footer">
                         <div className="row justify-space-between">
-                            <div className="col-xl-8 col-lg-4 col-md-12 col-sm-12 col-12 ">
-                                <div className="row">
-                                    <div className="col-lg-6">
-                                        <figure>
-                                            <figcaption>
-                                                Coupon Discount
-                                            </figcaption>
-                                            <div className="form-group">
-                                                <input
-                                                    className="form-control"
-                                                    type="text"
-                                                    placeholder="Enter coupon here..."
-                                                />
-                                            </div>
-                                            <div className="form-group">
-                                                <button className="ps-btn ps-btn--outline">
-                                                    Apply
-                                                </button>
-                                            </div>
-                                        </figure>
-                                    </div>
-                                </div>
-                            </div>
                             <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
                                 <ModuleCartSummary source={products} />
                                 <Link href="/account/checkout">
@@ -115,7 +91,6 @@ const ShoppingCartScreen = ({ ecomerce }) => {
                         </div>
                     </div>
                 </div>
-                <Newletters layout="container" />
             </PageContainer>
         </>
     );

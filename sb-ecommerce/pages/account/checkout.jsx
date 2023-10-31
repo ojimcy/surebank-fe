@@ -4,7 +4,6 @@ import BreadCrumb from '~/components/elements/BreadCrumb';
 import Checkout from '~/components/partials/account/Checkout';
 import FooterDefault from '~/components/shared/footers/FooterDefault';
 import PageContainer from '~/components/layouts/PageContainer';
-import Newletters from '~/components/partials/commons/Newletters';
 
 const CheckoutPage = () => {
     const breadCrumb = [
@@ -27,7 +26,6 @@ const CheckoutPage = () => {
                 <BreadCrumb breacrumb={breadCrumb} />
                 <Checkout />
             </div>
-            <Newletters layout="container" />
         </PageContainer>
     );
 };

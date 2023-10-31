@@ -1,12 +1,5 @@
-/*
- * React template helpers
- * Author: Nouthemes
- * Developed: diaryforlife
- * */
-
 import React from 'react';
 import cookies from 'js-cookie';
-import { getProductsByIds } from '~/repositories/ProductRepository';
 
 export function getCartItemsFromCookies() {
     const cartItems = cookies.get('cart');
