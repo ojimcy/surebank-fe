@@ -5,17 +5,18 @@ import {
     carouselStandard,
 } from '~/utilities/carousel-helpers';
 import Product from '~/components/elements/products/Product';
-import { getProductsByCollectionHelper } from '~/utilities/strapi-fetch-data-helpers';
+import { getProductBySlug } from '~/services/product.service';
+import { ProductGroupWithCarousel } from './ProductGroupWithCarousel';
 
 const CustomerBought = ({ collectionSlug, boxed, layout }) => {
+    const [loading, setLoading] = useState(false);
     const [productItems, setProductItems] = useState(null);
-    const [loading, setLoading] = useState(true);
 
     async function getProducts() {
         setLoading(true);
-        const responseData = await getProductsByCollectionHelper(collectionSlug);
+        const responseData = await getProductBySlug(collectionSlug);
         if (responseData) {
-            setProductItems(responseData.items);
+            setProductItems(responseData);
             setTimeout(
                 function () {
                     setLoading(false);
@@ -26,41 +27,24 @@ const CustomerBought = ({ collectionSlug, boxed, layout }) => {
     }
 
     useEffect(() => {
-        getProducts();
+        getProducts(collectionSlug);
     }, [collectionSlug]);
 
     // Views
     let carouselView;
     if (!loading) {
-        if (productItems) {
-            if ((layout = 'fullwidth')) {
-                carouselView = (
-                    <Slider {...carouselFullwidth} className="ps-carousel outside">
-                        {productItems.map((item, index) => {
-                            if (index < 8) {
-                                return <Product product={item} key={item.id} />;
-                            }
-                        })}
-                    </Slider>
-                );
-            } else {
-                carouselView = (
-                    <Slider {...carouselStandard} className="ps-carousel outside">
-                        {productItems.map((item, index) => {
-                            if (index < 8) {
-                                return <Product product={item} key={item.id} />;
-                            }
-                        })}
-                    </Slider>
-                );
-            }
-        }
-        else {
-            carouselView = <p>No product found.</p>
-        }
-    }
-    else {
-        carouselView = <p>Loading...</p>
+       if (productItems && productItems.length > 0) {
+           carouselView = (
+               <ProductGroupWithCarousel
+                   products={productItems}
+                   type="fullwidth"
+               />
+           );
+       } else {
+           carouselView = <p>No product(s) found.</p>;
+       }
+    } else {
+        carouselView = <p>Loading...</p>;
     }
 
     return (

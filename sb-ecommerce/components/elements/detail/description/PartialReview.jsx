@@ -2,12 +2,12 @@ import React from 'react';
 import { Rate } from 'antd';
 import Rating from '~/components/elements/Rating';
 
-const PartialReview = () => (
+const PartialReview = ({ product }) => (
     <div className="row">
         <div className="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 ">
             <div className="ps-block--average-rating">
                 <div className="ps-block__header">
-                    <h3>4.00</h3>
+                    <h3>{product.reviewCount?.toFixed(2)}</h3>
                     <Rating />
 
                     <span>1 Review</span>
@@ -52,11 +52,7 @@ const PartialReview = () => (
         <div className="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12 ">
             <form className="ps-form--review" action="/" method="get">
                 <h4>Submit Your Review</h4>
-                <p>
-                    Your email address will not be published. Required fields
-                    are marked
-                    <sup>*</sup>
-                </p>
+                <p>Your email address will not be published.</p>
                 <div className="form-group form-group__rating">
                     <label>Your rating of this product</label>
                     <Rate defaultValue={1} />
