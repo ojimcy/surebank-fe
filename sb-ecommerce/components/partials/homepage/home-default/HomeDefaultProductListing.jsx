@@ -23,7 +23,6 @@ const HomeDefaultProductListing = ({ collectionSlug, title }) => {
              );
          }
      }
-
     const sectionLinks = [
         {
             title: 'New Arrivals',

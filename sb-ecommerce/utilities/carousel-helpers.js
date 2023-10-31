@@ -80,7 +80,7 @@ export const carouselFullwidth = {
     dots: false,
     infinite: true,
     speed: 750,
-    slidesToShow: 2,
+    slidesToShow: 7,
     slidesToScroll: 3,
     arrows: true,
     nextArrow: <NextArrow />,
@@ -114,7 +114,6 @@ export const carouselFullwidth = {
                 slidesToScroll: 1,
                 infinite: true,
                 dots: true,
-
             },
         },
         {
@@ -124,7 +123,6 @@ export const carouselFullwidth = {
                 slidesToScroll: 1,
                 infinite: true,
                 dots: true,
-
             },
         },
         {
@@ -155,5 +153,5 @@ export const carouselSingle = {
     slidesToShow: 1,
     slidesToScroll: 1,
     nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />
+    prevArrow: <PrevArrow />,
 };
