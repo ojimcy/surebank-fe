@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Link from 'next/link';
 
 import ModulePaymentOrderSummary from '~/components/partials/account/modules/ModulePaymentOrderSummary';
@@ -41,4 +40,4 @@ const Payment = () => {
     );
 };
 
-export default connect()(Payment);
+export default Payment;

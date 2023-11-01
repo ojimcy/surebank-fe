@@ -4,6 +4,10 @@ export const initalState = {
     wishlistItems: [],
     compareItems: [],
     cartItems: [],
+    orders: [],
+    shippingAddress: null,
+    paymentMethod: null,
+    order: [],
 };
 
 function reducer(state = initalState, action) {
@@ -23,6 +27,26 @@ function reducer(state = initalState, action) {
             return {
                 ...state,
                 compareItems: action.payload,
+            };
+        case actionTypes.CREATE_ORDER_SUCCESS:
+            return {
+                ...state,
+                orders: [...state.orders, action.payload],
+            };
+        case actionTypes.SET_SHIPPING_ADDRESS:
+            return {
+                ...state,
+                shippingAddress: action.payload,
+            };
+        case actionTypes.SET_PAYMENT_METHOD:
+            return {
+                ...state,
+                paymentMethod: action.payload,
+            };
+        case actionTypes.SET_ORDER_DETAILS:
+            return {
+                ...state,
+                order: action.payload,
             };
         default:
             return state;

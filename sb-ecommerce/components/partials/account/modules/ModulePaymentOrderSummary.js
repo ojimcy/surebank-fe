@@ -3,15 +3,16 @@ import Link from 'next/link';
 import { connect } from 'react-redux';
 import useEcomerce from '~/hooks/useEcomerce';
 import { calculateAmount } from '~/utilities/ecomerce-helpers';
+import { formatNaira } from '~/utilities/formatNaira';
 
 const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
     const { products, getProducts } = useEcomerce();
-
     useEffect(() => {
         if (ecomerce.cartItems) {
             getProducts(ecomerce.cartItems, 'cart');
         }
     }, [ecomerce]);
+    const shippingFee = 0;
     // view
     let listItemsView, shippingView, totalView;
     let amount;
@@ -24,7 +25,7 @@ const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
                         {item.title}
                         <span>x{item.quantity}</span>
                     </strong>
-                    <small>${item.quantity * item.price}</small>
+                    <small>{formatNaira(parseInt(item.quantity * item.price))}</small>
                 </a>
             </Link>
         ));
@@ -36,7 +37,7 @@ const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
             <figure>
                 <figcaption>
                     <strong>Shipping Fee</strong>
-                    <small>$20.00</small>
+                    <small>{formatNaira(shippingFee)}</small>
                 </figcaption>
             </figure>
         );
@@ -44,7 +45,9 @@ const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
             <figure className="ps-block__total">
                 <h3>
                     Total
-                    <strong>${parseInt(amount) + 20}.00</strong>
+                    <strong>
+                        {formatNaira(parseInt(amount) + shippingFee)}
+                    </strong>
                 </h3>
             </figure>
         );
@@ -53,7 +56,7 @@ const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
             <figure className="ps-block__total">
                 <h3>
                     Total
-                    <strong>${parseInt(amount)}.00</strong>
+                    <strong>{formatNaira(parseInt(amount))}</strong>
                 </h3>
             </figure>
         );
@@ -71,7 +74,7 @@ const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
                 <figure>
                     <figcaption>
                         <strong>Subtotal</strong>
-                        <small>${amount}</small>
+                        <small>{formatNaira(parseInt(amount))}</small>
                     </figcaption>
                 </figure>
                 {shippingView}

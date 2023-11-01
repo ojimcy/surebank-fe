@@ -1,32 +1,119 @@
-import React, { useState } from 'react';
-import { Form, Input, Select } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Form, Input, Select, notification } from 'antd';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { connect } from 'react-redux';
+import { setOrderDetails, setShippingAddress } from '~/store/ecomerce/action';
+import Cookies from 'js-cookie';
+import { calculateAmount } from '~/utilities/ecomerce-helpers';
+import useEcomerce from '~/hooks/useEcomerce';
+import { useAuth } from '~/context/authContext';
+import { createOrder } from '~/services/order.service';
 
 const { Option } = Select;
 
-const FormCheckoutInformation = () => {
-    const [shippingMethod, setShippingMethod] = useState('');
+const FormCheckoutInformation = ({ dispatch, ecomerce }) => {
     const router = useRouter();
+    const [form] = Form.useForm();
+    const { currentUser } = useAuth();
 
-    const handleContinue = () => {
-        router.push('/account/shipping');
+    const { products, getProducts } = useEcomerce();
+    useEffect(() => {
+        if (ecomerce.cartItems) {
+            getProducts(ecomerce.cartItems, 'cart');
+        }
+    }, [ecomerce]);
+
+    let amount;
+    if (products && products.length > 0) {
+        amount = calculateAmount(products);
+    }
+    // Define initial form values
+    const initialFormValues = {
+        phoneNumber: '',
+        fullName: '',
+        address: '',
+        apartment: '',
+        city: '',
+        postalCode: '',
+        shippingMethod: '',
     };
 
-    const handleShippingMethodChange = (value) => {
-        setShippingMethod(value);
+    // Check if shippingAddress exists in cookies
+    const shippingAddressFromCookies = Cookies.getJSON('shippingAddress');
+
+    // Set the initial form values from cookies if available, else use defaults
+    const initialValues = shippingAddressFromCookies || initialFormValues;
+
+    useEffect(() => {
+        // Set the initial values for the form
+        form.setFieldsValue(initialValues);
+    }, [form, initialValues]);
+
+    const handleContinue = async () => {
+        const formValues = form.getFieldsValue();
+
+        const userId = currentUser ? currentUser.id : null;
+        const productDetails = products || [];
+
+        const shippingAddress = {
+            phoneNumber: formValues.phoneNumber,
+            fullName: formValues.fullName,
+            address: formValues.address,
+            apartment: formValues.apartment,
+            city: formValues.city,
+            postalCode: formValues.postalCode,
+        };
+
+        // Set the shipping address in the Redux store
+        dispatch(setShippingAddress(formValues));
+
+        // Save to cookies
+        Cookies.set('shippingAddress', formValues, {
+            path: '/',
+            expires: 24 * 1,
+        });
+
+        try {
+            const orderData = {
+                user: userId,
+                orderItems: productDetails.map((product) => ({
+                    name: product.name,
+                    quantity: product.quantity,
+                    image: product.featuredImage,
+                    price: product.price,
+                })),
+                shippingAddress: shippingAddress,
+                totalPrice: amount,
+                shippingMethod: formValues.shippingMethod,
+            };
+            const order = await createOrder(orderData);
+
+            // Dispatch an action to save the order
+            dispatch(setOrderDetails(order));
+            router.push('/account/payment');
+        } catch (error) {
+            notification.error({
+                message:
+                    error.response?.data?.message ||
+                    'An error occurred while making contribution.',
+                duration: 200,
+            });
+        }
     };
 
     return (
-        <Form className="ps-form__billing-info" onFinish={handleContinue}>
+        <Form
+            className="ps-form__billing-info"
+            form={form}
+            onFinish={handleContinue}>
             <h3 className="ps-form__heading">Contact information</h3>
             <div className="form-group">
                 <Form.Item
                     name="phoneNumber"
                     rules={[
                         {
-                            required: false,
+                            required: true,
                             message: 'Enter mobile phone number!',
                         },
                     ]}>
@@ -43,7 +130,7 @@ const FormCheckoutInformation = () => {
                     name="fullName"
                     rules={[
                         {
-                            required: false,
+                            required: true,
                             message: 'Enter your full name!',
                         },
                     ]}>
@@ -59,7 +146,7 @@ const FormCheckoutInformation = () => {
                     name="address"
                     rules={[
                         {
-                            required: false,
+                            required: true,
                             message: 'Enter an address!',
                         },
                     ]}>
@@ -93,7 +180,7 @@ const FormCheckoutInformation = () => {
                             name="city"
                             rules={[
                                 {
-                                    required: false,
+                                    required: true,
                                     message: 'Enter a city!',
                                 },
                             ]}>
@@ -126,7 +213,7 @@ const FormCheckoutInformation = () => {
             </div>
             <div className="form-group">
                 <Form.Item
-                    name="productId"
+                    name="shippingMethod"
                     rules={[
                         {
                             required: true,

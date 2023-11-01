@@ -69,11 +69,8 @@ const ModulePaymentMethods = () => {
                         </div>
                     ) : (
                         <div className="ps-block__tab">
-                            <a
-                                className="ps-btn"
-                                href="https://www.paypal.com/"
-                                target="_blank">
-                                Process with Paypal
+                            <a className="ps-btn" href="#" target="_blank">
+                                Pay with Wallet
                             </a>
                         </div>
                     )}

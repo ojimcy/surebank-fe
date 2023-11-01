@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 
 import PageContainer from '~/components/layouts/PageContainer';
 import FooterDefault from '~/components/shared/footers/FooterDefault';
-import Newletters from '~/components/partials/commons/Newletters';
 
 const PaymentPage = () => {
     const breadCrumb = [
@@ -34,7 +33,6 @@ const PaymentPage = () => {
                     <BreadCrumb breacrumb={breadCrumb} />
                     <Payment />
                 </div>
-                <Newletters layout="container" />
             </PageContainer>
         </>
     );

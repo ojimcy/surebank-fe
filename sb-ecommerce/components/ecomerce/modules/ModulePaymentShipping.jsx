@@ -1,7 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import { connect } from 'react-redux';
 
-const ModulePaymentShipping = () => {
+const ModulePaymentShipping = ({ order }) => {
+    console.log(order);
     return (
         <>
             <div className="ps-block__panel">
@@ -31,4 +33,8 @@ const ModulePaymentShipping = () => {
     );
 };
 
-export default ModulePaymentShipping;
+const mapStateToProps = (state) => ({
+    order: state.ecomerce.order,
+});
+
+export default connect(mapStateToProps)(ModulePaymentShipping);

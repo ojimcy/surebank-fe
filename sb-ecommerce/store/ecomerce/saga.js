@@ -1,10 +1,13 @@
-import { all, put, takeEvery } from 'redux-saga/effects';
+import { all, call, put, takeEvery } from 'redux-saga/effects';
 import { actionTypes } from './action';
 
 import {
     setCartItemsSuccess,
     setWishlistTtemsSuccess,
     setCompareItemsSuccess,
+    createOrderSuccess,
+    setShippingAddressSuccess,
+    saveOrder,
 } from './action';
 
 // new
@@ -27,6 +30,34 @@ function* getCartItems({ payload }) {
 function* getCompareItems({ payload }) {
     try {
         yield put(setCompareItemsSuccess(payload));
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+function* createOrder({ payload }) {
+    try {
+        const { orderId, orderDetails } = yield call(
+            createOrderService,
+            payload
+        );
+        yield put(createOrderSuccess(orderDetails));
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+function* setShippingAddress({ payload }) {
+    try {
+        yield put(setShippingAddressSuccess(payload));
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+function* setOrderDetails({ payload }) {
+    try {
+        yield put(saveOrder(payload));
     } catch (err) {
         console.log(err);
     }

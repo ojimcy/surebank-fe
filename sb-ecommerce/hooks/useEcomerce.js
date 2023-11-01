@@ -6,6 +6,9 @@ import {
     setCompareItems,
     setWishlistTtems,
     setCartItems,
+    createOrder,
+    setShippingAddress,
+    setOrderDetails
 } from '~/store/ecomerce/action';
 
 export default function useEcomerce() {
@@ -160,6 +163,18 @@ export default function useEcomerce() {
                 setCookie('cart', [], { path: '/' });
                 dispatch(setCartItems([]));
             }
+        },
+
+        createOrder: (orderDetails) => {
+            dispatch(createOrder(orderDetails));
+        },
+
+        setShippingAddress: (address) => {
+            dispatch(setShippingAddress(address));
+        },
+        
+        setOrderDetails: (order) => {
+            dispatch(setOrderDetails(order));
         },
     };
 }
