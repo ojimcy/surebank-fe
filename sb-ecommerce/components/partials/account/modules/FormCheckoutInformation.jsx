@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Select, notification } from 'antd';
+import { Form, Input, Radio, Select, notification } from 'antd';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { connect } from 'react-redux';
@@ -37,6 +37,7 @@ const FormCheckoutInformation = ({ dispatch, ecomerce }) => {
         city: '',
         postalCode: '',
         shippingMethod: '',
+        paymentMethod: '',
     };
 
     // Check if shippingAddress exists in cookies
@@ -68,12 +69,6 @@ const FormCheckoutInformation = ({ dispatch, ecomerce }) => {
         // Set the shipping address in the Redux store
         dispatch(setShippingAddress(formValues));
 
-        // Save to cookies
-        Cookies.set('shippingAddress', formValues, {
-            path: '/',
-            expires: 24 * 1,
-        });
-
         try {
             const orderData = {
                 user: userId,
@@ -86,12 +81,19 @@ const FormCheckoutInformation = ({ dispatch, ecomerce }) => {
                 shippingAddress: shippingAddress,
                 totalPrice: amount,
                 shippingMethod: formValues.shippingMethod,
+                paymentMethod: formValues.paymentMethod,
             };
             const order = await createOrder(orderData);
-
+            console.log(order);
             // Dispatch an action to save the order
             dispatch(setOrderDetails(order));
-            router.push('/account/payment');
+
+            // Save to cookies
+            Cookies.set('order', order, {
+                path: '/',
+                expires: 24 * 1,
+            });
+            router.push('/account/shipping');
         } catch (error) {
             notification.error({
                 message:
@@ -224,6 +226,22 @@ const FormCheckoutInformation = ({ dispatch, ecomerce }) => {
                         <Option value="home">Home Delivery</Option>
                         <Option value="pickUp">Pickup Station</Option>
                     </Select>
+                </Form.Item>
+            </div>
+
+            <div className="form-group">
+                <Form.Item
+                    name="paymentMethod"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please prefered payment method!',
+                        },
+                    ]}>
+                    <Radio.Group className="vertical-radio-group">
+                        <Radio value="paypal">Paypal</Radio>
+                        <Radio value="wallet">SB Account</Radio>
+                    </Radio.Group>
                 </Form.Item>
             </div>
             <div className="form-group">

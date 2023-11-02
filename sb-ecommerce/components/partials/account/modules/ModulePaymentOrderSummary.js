@@ -4,9 +4,12 @@ import { connect } from 'react-redux';
 import useEcomerce from '~/hooks/useEcomerce';
 import { calculateAmount } from '~/utilities/ecomerce-helpers';
 import { formatNaira } from '~/utilities/formatNaira';
+import { useRouter } from 'next/router';
 
-const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
+const ModulePaymentOrderSummary = ({ ecomerce, order }) => {
+    const router = useRouter();
     const { products, getProducts } = useEcomerce();
+
     useEffect(() => {
         if (ecomerce.cartItems) {
             getProducts(ecomerce.cartItems, 'cart');
@@ -25,42 +28,36 @@ const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
                         {item.title}
                         <span>x{item.quantity}</span>
                     </strong>
-                    <small>{formatNaira(parseInt(item.quantity * item.price))}</small>
+                    <small>
+                        {formatNaira(parseInt(item.quantity * item.price))}
+                    </small>
                 </a>
             </Link>
         ));
     } else {
         listItemsView = <p>No Product.</p>;
     }
-    if (shipping === true) {
-        shippingView = (
-            <figure>
-                <figcaption>
-                    <strong>Shipping Fee</strong>
-                    <small>{formatNaira(shippingFee)}</small>
-                </figcaption>
-            </figure>
-        );
-        totalView = (
-            <figure className="ps-block__total">
-                <h3>
-                    Total
-                    <strong>
-                        {formatNaira(parseInt(amount) + shippingFee)}
-                    </strong>
-                </h3>
-            </figure>
-        );
-    } else {
-        totalView = (
-            <figure className="ps-block__total">
-                <h3>
-                    Total
-                    <strong>{formatNaira(parseInt(amount))}</strong>
-                </h3>
-            </figure>
-        );
-    }
+    shippingView = (
+        <figure>
+            <figcaption>
+                <strong>Shipping Fee</strong>
+                <small>{formatNaira(shippingFee)}</small>
+            </figcaption>
+        </figure>
+    );
+    totalView = (
+        <figure className="ps-block__total">
+            <h3>
+                Total
+                <strong>{formatNaira(parseInt(amount) + shippingFee)}</strong>
+            </h3>
+        </figure>
+    );
+
+    const handlePayment = () => {
+        router.push(`/account/orders/${order.id}`);
+    };
+
     return (
         <div className="ps-block--checkout-order">
             <div className="ps-block__content">
@@ -79,6 +76,11 @@ const ModulePaymentOrderSummary = ({ ecomerce, shipping }) => {
                 </figure>
                 {shippingView}
                 {totalView}
+                {order && (
+                    <a className="ps-btn order-btn" onClick={handlePayment}>
+                        Continue to payment
+                    </a>
+                )}
             </div>
         </div>
     );

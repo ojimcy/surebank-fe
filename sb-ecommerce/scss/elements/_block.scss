@@ -3494,9 +3494,6 @@
         background-color: #fff;
     }
 
-    .ps-block__content {
-    }
-
     .ant-select {
         min-width: 100%;
     }
@@ -3575,4 +3572,16 @@
             max-width: 220px;
         }
     }
+}
+
+.vertical-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.order-btn {
+    width: 100%;
+    text-align: center;
+    color: #ffffff !important;
 }

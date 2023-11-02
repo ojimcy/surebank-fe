@@ -7,7 +7,7 @@ import {
     setCompareItemsSuccess,
     createOrderSuccess,
     setShippingAddressSuccess,
-    saveOrder,
+    setOrderDetailsSuccess,
 } from './action';
 
 // new
@@ -57,7 +57,7 @@ function* setShippingAddress({ payload }) {
 
 function* setOrderDetails({ payload }) {
     try {
-        yield put(saveOrder(payload));
+        yield put(setOrderDetailsSuccess(payload));
     } catch (err) {
         console.log(err);
     }

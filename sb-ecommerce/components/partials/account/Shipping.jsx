@@ -1,35 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import ModulePaymentOrderSummary from '~/components/partials/account/modules/ModulePaymentOrderSummary';
 import { connect } from 'react-redux';
 import { formatNaira } from '~/utilities/formatNaira';
 import ModuleCartOrderSummary from '~/components/ecomerce/modules/ModuleCartOrderSummary';
-import { getProductCatById } from '~/services/product.service';
 
-const Shipping = ({ shippingAddress, cartItems }) => {
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        // Fetch products when the component mounts
-        async function fetchProducts() {
-            if (cartItems && cartItems.length > 0) {
-                const productIds = cartItems.map((item) => item.id);
-                const productsArray = [];
-
-                for (const productId of productIds) {
-                    const product = await getProductCatById(productId);
-                    if (product) {
-                        productsArray.push(product);
-                    }
-                }
-
-                setProducts(productsArray);
-            }
-        }
-
-        fetchProducts();
-    }, [cartItems]);
-
+const Shipping = ({ order }) => {
     return (
         <div className="ps-checkout ps-section--shopping">
             <div className="container">
@@ -42,15 +18,12 @@ const Shipping = ({ shippingAddress, cartItems }) => {
                             <div className="ps-block--shipping">
                                 <div className="ps-block__panel">
                                     <figure>
-                                        <small>Contact</small>
-                                        <p>{shippingAddress.phoneNumber}</p>
-                                        <Link href="/account/checkout">
-                                            <a>Change</a>
-                                        </Link>
+                                        <small>Contact: </small>
+                                        <p>{`${order.shippingAddress.fullName}, ${order.shippingAddress.phoneNumber}`}</p>
                                     </figure>
                                     <figure>
-                                        <small>Ship to</small>
-                                        <p>{`${shippingAddress.apartment}, ${shippingAddress.address} ${shippingAddress.city}`}</p>
+                                        <small>Ship to: </small>
+                                        <p>{`${order.shippingAddress.apartment}, ${order.shippingAddress.address} ${order.shippingAddress.city}`}</p>
                                         <Link href="/account/checkout">
                                             <a>Change</a>
                                         </Link>
@@ -59,14 +32,14 @@ const Shipping = ({ shippingAddress, cartItems }) => {
                                 <h4>Shipping Method</h4>
                                 <div className="ps-block__panel">
                                     <figure>
-                                        <small>
-                                            {shippingAddress.shippingMethod}
-                                        </small>
+                                        <small>{order.shippingMethod}</small>
                                         <strong>{formatNaira(0)}</strong>
                                     </figure>
                                 </div>
                                 <h4>Order summary</h4>
-                                <ModuleCartOrderSummary cartItems={products} />
+                                <ModuleCartOrderSummary
+                                    cartItems={order.orderItems}
+                                />
                                 <div className="ps-block__footer">
                                     <Link href="/account/checkout">
                                         <a>
@@ -74,17 +47,12 @@ const Shipping = ({ shippingAddress, cartItems }) => {
                                             Return to information
                                         </a>
                                     </Link>
-                                    <Link href="/account/payment">
-                                        <a className="ps-btn">
-                                            Continue to payment
-                                        </a>
-                                    </Link>
                                 </div>
                             </div>
                         </div>
                         <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12  ps-block--checkout-order">
                             <div className="ps-form__orders">
-                                <ModulePaymentOrderSummary shipping={true} />
+                                <ModulePaymentOrderSummary order={order} />
                             </div>
                         </div>
                     </div>
@@ -96,8 +64,7 @@ const Shipping = ({ shippingAddress, cartItems }) => {
 
 // Connect the component to access the shippingAddress from the Redux store
 const mapStateToProps = (state) => ({
-    shippingAddress: state.ecomerce.shippingAddress,
-    cartItems: state.ecomerce.cartItems,
+    order: state.ecomerce.order,
 });
 
 export default connect(mapStateToProps)(Shipping);

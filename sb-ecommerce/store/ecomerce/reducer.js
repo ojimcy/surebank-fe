@@ -31,7 +31,7 @@ function reducer(state = initalState, action) {
         case actionTypes.CREATE_ORDER_SUCCESS:
             return {
                 ...state,
-                orders: [...state.orders, action.payload],
+                order: action.payload,
             };
         case actionTypes.SET_SHIPPING_ADDRESS:
             return {
