@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import useEcomerce from '~/hooks/useEcomerce';
 import { Result } from 'antd';
 import ProductCart from '~/components/elements/products/ProductCart';
+import { formatNaira } from '~/utilities/formatNaira';
 
 const ModuleEcomerceCartItems = ({ ecomerce, cartItems }) => {
     const { increaseQty, decreaseQty, removeItem } = useEcomerce();
@@ -31,7 +32,7 @@ const ModuleEcomerceCartItems = ({ ecomerce, cartItems }) => {
                     <ProductCart product={item} />
                 </td>
                 <td data-label="price" className="price">
-                    ${item.price}
+                    {formatNaira(item.price)}
                 </td>
                 <td data-label="quantity">
                     <div className="form-group--number">
@@ -54,7 +55,7 @@ const ModuleEcomerceCartItems = ({ ecomerce, cartItems }) => {
                     </div>
                 </td>
                 <td data-label="total">
-                    <strong>${(item.price * item.quantity).toFixed(2)}</strong>
+                    <strong>{formatNaira((item.price * item.quantity))}</strong>
                 </td>
                 <td>
                     <a href="#" onClick={(e) => handleRemoveItem(e, item.id)}>

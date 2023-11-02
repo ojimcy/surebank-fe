@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import useProduct from '~/hooks/useProduct';
+import { formatNaira } from '~/utilities/formatNaira';
 
 const ProductOnCart = ({ product, children }) => {
     const { thumbnailImage, title } = useProduct();
@@ -16,7 +17,7 @@ const ProductOnCart = ({ product, children }) => {
                 {title(product)}
                 <p>
                     <small>
-                        ${product.price} x {product.quantity}
+                        {formatNaira(product.price)} x {product.quantity}
                     </small>
                 </p>{' '}
                 {children}

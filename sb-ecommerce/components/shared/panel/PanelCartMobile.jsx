@@ -4,6 +4,7 @@ import Link from 'next/link';
 import useEcomerce from '~/hooks/useEcomerce';
 import useProduct from '~/hooks/useProduct';
 import { calculateAmount } from '~/utilities/ecomerce-helpers';
+import { formatNaira } from '~/utilities/formatNaira';
 
 const PanelCartMobile = ({ ecomerce }) => {
     const { products, getProducts, removeItem } = useEcomerce();
@@ -45,7 +46,7 @@ const PanelCartMobile = ({ ecomerce }) => {
                         <strong>Sold by:</strong> {item.vendor}
                     </p>
                     <small>
-                        {item.quantity} x ${item.price}
+                        {item.quantity} x {formatNaira(item.price)}
                     </small>
                 </div>
             </div>
@@ -54,7 +55,7 @@ const PanelCartMobile = ({ ecomerce }) => {
         footerView = (
             <div className="ps-cart__footer">
                 <h3>
-                    Sub Total:<strong>${amount}</strong>
+                    Sub Total:<strong>{formatNaira(amount)}</strong>
                 </h3>
                 <figure>
                     <Link href="/account/shopping-cart">

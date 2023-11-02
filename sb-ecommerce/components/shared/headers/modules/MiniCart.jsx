@@ -4,6 +4,7 @@ import Link from 'next/link';
 import ProductOnCart from '~/components/elements/products/ProductOnCart';
 import useEcomerce from '~/hooks/useEcomerce';
 import { calculateAmount } from '~/utilities/ecomerce-helpers';
+import { formatNaira } from '~/utilities/formatNaira';
 
 const MiniCart = ({ ecomerce }) => {
     const { products, removeItem, removeItems, getProducts } = useEcomerce();
@@ -37,7 +38,9 @@ const MiniCart = ({ ecomerce }) => {
                 <div className="ps-cart__footer">
                     <h3>
                         Sub Total:
-                        <strong>${amount ? amount : 0}</strong>
+                        <strong>
+                            {amount ? formatNaira(amount) : formatNaira(0)}
+                        </strong>
                     </h3>
                     <figure>
                         <Link href="/account/shopping-cart">
