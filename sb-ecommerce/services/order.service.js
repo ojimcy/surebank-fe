@@ -13,3 +13,8 @@ export const getOrderById = async (orderId) => {
 export const updateOrder = async (orderId, orderData) => {
     await axiosService.patch(`/orders/${orderId}`, orderData);
 };
+
+export const orderHistory = async (userId) => {
+    const response = await axiosService.get(`/orders/user?userId=${userId}`);
+    return response.data;
+};

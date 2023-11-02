@@ -22,24 +22,14 @@ const DashboardLayout = ({ children }) => {
             icon: 'icon-user',
         },
         {
-            text: 'Notifications',
-            url: '/account/notifications',
-            icon: 'icon-alarm-ringing',
-        },
-        {
             text: 'Invoices',
             url: '/account/invoices',
             icon: 'icon-papers',
         },
         {
-            text: 'Address',
-            url: '/account/addresses',
+            text: 'Orders',
+            url: '/account/orders/order-history',
             icon: 'icon-map-marker',
-        },
-        {
-            text: 'Recent Viewed Product',
-            url: '/account/recent-viewed-product',
-            icon: 'icon-store',
         },
         {
             text: 'Wishlist',
