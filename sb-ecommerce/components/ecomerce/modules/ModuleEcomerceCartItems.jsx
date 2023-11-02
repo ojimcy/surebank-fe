@@ -26,7 +26,7 @@ const ModuleEcomerceCartItems = ({ ecomerce, cartItems }) => {
     let cartItemsViews;
     if (cartItems && cartItems.length > 0) {
         const items = cartItems.map((item) => (
-            <tr key={item.id}>
+            <tr key={item._id}>
                 <td>
                     <ProductCart product={item} />
                 </td>

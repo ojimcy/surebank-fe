@@ -18,3 +18,8 @@ export const orderHistory = async (userId) => {
     const response = await axiosService.get(`/orders/user?userId=${userId}`);
     return response.data;
 };
+
+export const payOrder = async (orderId, orderData) => {
+   const response = await axiosService.post(`/orders/${orderId}/pay`, orderData);
+   return response.data;
+};

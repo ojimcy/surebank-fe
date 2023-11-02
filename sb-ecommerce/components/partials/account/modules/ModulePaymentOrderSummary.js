@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import useEcomerce from '~/hooks/useEcomerce';
 import { calculateAmount } from '~/utilities/ecomerce-helpers';
 import { formatNaira } from '~/utilities/formatNaira';
+import { payOrder } from '~/services/order.service';
+import { notification } from 'antd';
 import { useRouter } from 'next/router';
 
 const ModulePaymentOrderSummary = ({ ecomerce, order }) => {
@@ -54,8 +56,22 @@ const ModulePaymentOrderSummary = ({ ecomerce, order }) => {
         </figure>
     );
 
-    const handlePayment = () => {
-        router.push(`/account/orders/${order.id}`);
+    const handlePayment = async () => {
+        try {
+            await payOrder(order.id);
+            notification.success({
+                message: 'Payment successfull',
+                duration: 2,
+            });
+            router.push('/account/payment-success');
+        } catch (error) {
+            console.error(error);
+            notification.error({
+                message:
+                    error.response?.data?.message || 'Error making payment',
+                duration: 2,
+            });
+        }
     };
 
     return (
@@ -78,7 +94,7 @@ const ModulePaymentOrderSummary = ({ ecomerce, order }) => {
                 {totalView}
                 {order && (
                     <a className="ps-btn order-btn" onClick={handlePayment}>
-                        Continue to payment
+                        Make Payment
                     </a>
                 )}
             </div>

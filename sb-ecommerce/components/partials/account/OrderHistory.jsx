@@ -38,10 +38,18 @@ const OrderHistory = () => {
             },
         },
         {
-            title: 'Total Paid',
+            title: 'Total',
             dataIndex: 'totalPrice',
             render: (text, record) => {
                 return formatNaira(text);
+            },
+        },
+        {
+            title: 'Paid',
+            dataIndex: 'isPaid',
+            key: 'isPaid',
+            render: (text, record) => {
+                return text ? `paid at ${order.paidAt}` : 'Not Paid';
             },
         },
         {
