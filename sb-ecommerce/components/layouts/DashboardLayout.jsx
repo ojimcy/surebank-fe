@@ -7,11 +7,11 @@ const DashboardLayout = ({ children }) => {
     const { currentUser, logout } = useAuth();
     const router = useRouter();
 
-    useEffect(() => {
-        if (!currentUser) {
-            router.push('/account/login');
-        }
-    }, [currentUser, router]);
+    // useEffect(() => {
+    //     if (!currentUser) {
+    //         router.push('/account/login');
+    //     }
+    // }, [currentUser, router]);
 
     const [activeLink, setActiveLink] = useState('Dashboard');
 

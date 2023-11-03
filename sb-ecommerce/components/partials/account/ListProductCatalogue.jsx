@@ -86,64 +86,60 @@ const ListProductCatalogue = () => {
 
     return (
         <>
-            <DashboardLayout>
-                <div className="ps-form__header d-flex justify-content-between align-item-center mb-5">
-                    <h3>Product Catalogue</h3>
-                    <a href="/account/products/create-catalogue">
-                        Add new product
-                    </a>
-                </div>
-                {products && products.length > 0 ? (
-                    <table className="table  ps-table--shopping-cart table-responsive">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Sales Price</th>
-                                <th>Quantity</th>
-                                <th>Action</th>
+            <div className="ps-form__header d-flex justify-content-between align-item-center mb-5">
+                <h3>Product Catalogue</h3>
+                <a href="/account/products/create-catalogue">Add new product</a>
+            </div>
+            {products && products.length > 0 ? (
+                <table className="table  ps-table--shopping-cart table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Sales Price</th>
+                            <th>Quantity</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {products.map((product) => (
+                            <tr key={product.id}>
+                                <td>
+                                    {product.name}{' '}
+                                    <img
+                                        style={{ width: '50px' }}
+                                        src={product.featuredImage}
+                                        alt={product.name}
+                                    />
+                                </td>
+                                <td>{product.price}</td>
+                                <td>{product.salesPrice}</td>
+                                <td>{product.quantity}</td>
+                                <td style={{ display: 'flex' }}>
+                                    <Button
+                                        className="mr-2"
+                                        type="danger"
+                                        onClick={() =>
+                                            handleShowDelete(product)
+                                        }>
+                                        Delete
+                                    </Button>
+                                    <Button
+                                        className="mr-2"
+                                        type="primary"
+                                        onClick={() =>
+                                            handleShowDetails(product)
+                                        }>
+                                        View Details
+                                    </Button>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {products.map((product) => (
-                                <tr key={product.id}>
-                                    <td>
-                                        {product.name}{' '}
-                                        <img
-                                            style={{ width: '50px' }}
-                                            src={product.featuredImage}
-                                            alt={product.name}
-                                        />
-                                    </td>
-                                    <td>{product.price}</td>
-                                    <td>{product.salesPrice}</td>
-                                    <td>{product.quantity}</td>
-                                    <td style={{ display: 'flex' }}>
-                                        <Button
-                                            className="mr-2"
-                                            type="danger"
-                                            onClick={() =>
-                                                handleShowDelete(product)
-                                            }>
-                                            Delete
-                                        </Button>
-                                        <Button
-                                            className="mr-2"
-                                            type="primary"
-                                            onClick={() =>
-                                                handleShowDetails(product)
-                                            }>
-                                            View Details
-                                        </Button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                ) : (
-                    <Result status="warning" title="No product Found." />
-                )}
-            </DashboardLayout>
+                        ))}
+                    </tbody>
+                </table>
+            ) : (
+                <Result status="warning" title="No product Found." />
+            )}
 
             <ProductCatDetailsModal
                 confirmModalVisible={detailsModal}

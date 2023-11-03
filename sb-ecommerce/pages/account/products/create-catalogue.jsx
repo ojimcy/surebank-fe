@@ -5,6 +5,7 @@ import FooterDefault from '~/components/shared/footers/FooterDefault';
 import PageContainer from '~/components/layouts/PageContainer';
 import Newletters from '~/components/partials/commons/Newletters';
 import AddProductCatalogue from '~/components/partials/account/ProductCatalogue';
+import DashboardLayout from '~/components/layouts/DashboardLayout';
 
 const CreateProductCatalugue = () => {
     const breadCrumb = [
@@ -25,9 +26,11 @@ const CreateProductCatalugue = () => {
         <PageContainer footer={<FooterDefault />} title="Product Catalogue">
             <div className="ps-page--my-account">
                 <BreadCrumb breacrumb={breadCrumb} />
-                <AddProductCatalogue />
+                <DashboardLayout>
+                    <AddProductCatalogue />
+                </DashboardLayout>
+                
             </div>
-            <Newletters layout="container" />
         </PageContainer>
     );
 };

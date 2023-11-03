@@ -11,7 +11,7 @@ const ProductCatDetailsModal = ({
 }) => {
     return (
         <Modal
-            title="Confirm Approval"
+            title="Details"
             visible={confirmModalVisible}
             onOk={onOk}
             onCancel={onCancel}>

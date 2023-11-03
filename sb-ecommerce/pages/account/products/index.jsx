@@ -4,6 +4,7 @@ import BreadCrumb from '~/components/elements/BreadCrumb';
 import FooterDefault from '~/components/shared/footers/FooterDefault';
 import PageContainer from '~/components/layouts/PageContainer';
 import ListProductCatalogue from '~/components/partials/account/ListProductCatalogue';
+import DashboardLayout from '~/components/layouts/DashboardLayout';
 
 const ProductCatalugue = () => {
     const breadCrumb = [
@@ -20,7 +21,9 @@ const ProductCatalugue = () => {
         <PageContainer footer={<FooterDefault />} title="Product Catalogue">
             <div className="ps-page--my-account">
                 <BreadCrumb breacrumb={breadCrumb} />
-                <ListProductCatalogue />
+                <DashboardLayout>
+                    <ListProductCatalogue />
+                </DashboardLayout>
             </div>
         </PageContainer>
     );
