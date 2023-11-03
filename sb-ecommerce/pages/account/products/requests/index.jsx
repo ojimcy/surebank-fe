@@ -1,22 +1,37 @@
 import React from 'react';
-import PageContainer from '~/components/layouts/PageContainer';
-import ProductRequestsLists from '../../../shop/products/modules/ProductRequestsLists';
 
-const ProductRequests = () => {
+import BreadCrumb from '~/components/elements/BreadCrumb';
+import FooterDefault from '~/components/shared/footers/FooterDefault';
+import PageContainer from '~/components/layouts/PageContainer';
+import DashboardLayout from '~/components/layouts/DashboardLayout';
+import ProductRequestsLists from '~/pages/shop/products/modules/ProductRequestsLists';
+
+const ProductCatalugue = () => {
+    
+     const breadCrumb = [
+         {
+             text: 'Home',
+             url: '/',
+         },
+         {
+             text: 'Products',
+             url: '/account/products',
+         },
+         {
+             text: 'Product Requests',
+         },
+     ];
+
     return (
-        <PageContainer title="Product Requests">
-            <div className="ps-section--shopping ps-shopping-cart">
-                <div className="container">
-                    <div className="ps-section__header">
-                        <h1>Product Requests</h1>
-                    </div>
-                    <div className="ps-section__content">
-                        <ProductRequestsLists />
-                    </div>
-                </div>
+        <PageContainer footer={<FooterDefault />} title="Product Requests">
+            <div className="ps-page--my-account">
+                <BreadCrumb breacrumb={breadCrumb} />
+                <DashboardLayout>
+                    <ProductRequestsLists />
+                </DashboardLayout>
             </div>
         </PageContainer>
     );
 };
 
-export default ProductRequests;
+export default ProductCatalugue;

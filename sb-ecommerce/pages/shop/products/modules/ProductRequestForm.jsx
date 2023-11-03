@@ -16,7 +16,6 @@ const ProductRequestForm = () => {
     const fetchProductsCategories = async () => {
         const response = await getCategories();
         setCategories(response);
-        console.log(categories);
     };
 
     const fetchProductsBrands = async () => {
@@ -97,49 +96,7 @@ const ProductRequestForm = () => {
                             </div>
                         </div>
 
-                        <div className="col-sm-6">
-                            <div className="form-group">
-                                <Form.Item
-                                    name="price"
-                                    label="Price"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message:
-                                                'Please enter product selling price',
-                                        },
-                                    ]}>
-                                    <Input
-                                        className="form-control"
-                                        type="number"
-                                        placeholder="Enter product selling price"
-                                    />
-                                </Form.Item>
-                            </div>
-                        </div>
-
-                        <div className="col-sm-6">
-                            <div className="form-group">
-                                <Form.Item
-                                    name="originalPrice"
-                                    label="Original Price"
-                                    rules={[
-                                        {
-                                            required: false,
-                                            message:
-                                                'Please enter discount price',
-                                        },
-                                    ]}>
-                                    <Input
-                                        className="form-control"
-                                        type="number"
-                                        placeholder="Enter discounted price"
-                                    />
-                                </Form.Item>
-                            </div>
-                        </div>
-
-                        <div className="col-sm-6">
+                        <div className="col-sm-12">
                             <div className="form-group">
                                 <Form.Item
                                     name="slug"
@@ -159,26 +116,7 @@ const ProductRequestForm = () => {
                                 </Form.Item>
                             </div>
                         </div>
-                        <div className="col-sm-6">
-                            <div className="form-group">
-                                <Form.Item
-                                    name="stock"
-                                    label="Stock"
-                                    rules={[
-                                        {
-                                            required: false,
-                                            message:
-                                                'Please enter product stock',
-                                        },
-                                    ]}>
-                                    <Input
-                                        className="form-control"
-                                        type="number"
-                                        placeholder="Enter Number of product in stock"
-                                    />
-                                </Form.Item>
-                            </div>
-                        </div>
+
                         <div className="col-sm-12">
                             <div className="form-group">
                                 <Form.Item
@@ -202,45 +140,6 @@ const ProductRequestForm = () => {
                         <div className="col-sm-6">
                             <div className="form-group">
                                 <Form.Item
-                                    name="images"
-                                    label="Images"
-                                    rules={[
-                                        {
-                                            required: true,
-                                            message: 'Please enter image',
-                                        },
-                                    ]}>
-                                    <Input
-                                        className="form-control"
-                                        placeholder="Enter image url"
-                                    />
-                                </Form.Item>
-                            </div>
-                        </div>
-
-                        <div className="col-sm-6">
-                            <div className="form-group">
-                                <Form.Item
-                                    name="tags"
-                                    label="Tags"
-                                    rules={[
-                                        {
-                                            required: false,
-                                            message: 'Please enter tags',
-                                        },
-                                    ]}>
-                                    <Input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Enter tags"
-                                    />
-                                </Form.Item>
-                            </div>
-                        </div>
-
-                        <div className="col-sm-6">
-                            <div className="form-group">
-                                <Form.Item
                                     name="categoryId"
                                     label="Category"
                                     rules={[
@@ -249,7 +148,9 @@ const ProductRequestForm = () => {
                                             message: 'Please select a category',
                                         },
                                     ]}>
-                                    <Select placeholder="Select a category">
+                                    <Select
+                                        placeholder="Select a category"
+                                        className="form-control">
                                         {categories?.map((category) => (
                                             <Option
                                                 key={category.id}
@@ -273,7 +174,9 @@ const ProductRequestForm = () => {
                                             message: 'Please select a brand',
                                         },
                                     ]}>
-                                    <Select placeholder="Select a brand">
+                                    <Select
+                                        placeholder="Select a brand"
+                                        className="form-control">
                                         {brands?.map((brand) => (
                                             <Option
                                                 key={brand.id}

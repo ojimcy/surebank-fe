@@ -24,7 +24,7 @@ const ProductRequestsLists = () => {
             try {
                 setLoading(true);
                 const response = await getProductRequests();
-                setRequests(response.results);
+                setRequests(response);
             } catch (error) {
                 console.error('Error fetching requests:', error);
             } finally {
@@ -129,50 +129,47 @@ const ProductRequestsLists = () => {
     };
     return (
         <>
-            <DashboardLayout>
-                {requests && requests.length > 0 ? (
-                    <table className="table  ps-table--shopping-cart table-responsive">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th> Merchant</th>
-                                <th>Status</th>
-                                <th>Action</th>
+            <div className="ps-form__header d-flex justify-content-between align-item-center mb-5">
+                <h3>Product Requests</h3>
+                <a href="/account/products/requests/create">
+                    Create new product
+                </a>
+            </div>
+            {requests && requests.length > 0 ? (
+                <table className="table  ps-table--shopping-cart table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Brand</th>
+                            <th> Category</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {requests.map((request) => (
+                            <tr key={request.id}>
+                                <td>{request.name}</td>
+                                <td>{request.brand?.name}</td>
+                                <td>{request.cateforyId?.name}</td>
+                                <td>{request.status}</td>
+                                <td style={{ display: 'flex' }}>
+                                    <Button
+                                        className="mr-2"
+                                        type="primary"
+                                        onClick={() =>
+                                            handleShowDetails(request)
+                                        }>
+                                        View Details
+                                    </Button>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {requests.map((request) => (
-                                <tr key={request.id}>
-                                    <td>
-                                        {request.name}{' '}
-                                        <img
-                                            style={{ width: '50px' }}
-                                            src={request.images}
-                                            alt={request.name}
-                                        />
-                                    </td>
-                                    <td>{request.price}</td>
-                                    <td>{request.merchantId?.storeName}</td>
-                                    <td>{request.status}</td>
-                                    <td style={{ display: 'flex' }}>
-                                        <Button
-                                            className="mr-2"
-                                            type="primary"
-                                            onClick={() =>
-                                                handleShowDetails(request)
-                                            }>
-                                            View Details
-                                        </Button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                ) : (
-                    <Result status="warning" title="No product in cart." />
-                )}
-            </DashboardLayout>
+                        ))}
+                    </tbody>
+                </table>
+            ) : (
+                <Result status="warning" title="No product in cart." />
+            )}
 
             <ProductDetailsModal
                 confirmModalVisible={detailsModal}

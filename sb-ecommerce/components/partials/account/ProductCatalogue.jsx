@@ -43,8 +43,9 @@ const AddProductCatalogue = () => {
     };
     return (
         <Form className="ps-form--account-setting" onFinish={handleSubmit}>
-            <div className="ps-form__header">
+            <div className="ps-form__header d-flex justify-content-between align-item-center mb-5">
                 <h3>Product Catalogue</h3>
+                <a href="/account/products/requests/create">Request New Product</a>
             </div>
             <div className="ps-form__content">
                 <div className="row">

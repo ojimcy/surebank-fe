@@ -9,17 +9,15 @@ import { formatNaira } from '~/utilities/formatNaira';
 const OrderHistory = () => {
     const { currentUser } = useAuth();
     const [tableData, setTableData] = useState([]);
-
+console.log(currentUser);
     useEffect(() => {
-        if (currentUser) {
-            const fetchOrderHistory = async () => {
-                const orders = await orderHistory(currentUser.id);
-                if (orders) {
-                    setTableData(orders);
-                }
-            };
-            fetchOrderHistory();
-        }
+        const fetchOrderHistory = async () => {
+            const orders = await orderHistory(currentUser.id);
+            if (orders) {
+                setTableData(orders);
+            }
+        };
+        fetchOrderHistory();
     }, [currentUser]);
 
     const tableColumn = [
@@ -77,6 +75,9 @@ const OrderHistory = () => {
 
     return (
         <DashboardLayout>
+            <div className="ps-section__header">
+                <h3>Product Requests</h3>
+            </div>
             <Table
                 columns={tableColumn}
                 dataSource={tableData}
