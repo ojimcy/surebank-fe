@@ -7,6 +7,12 @@ const DashboardLayout = ({ children }) => {
     const { currentUser, logout } = useAuth();
     const router = useRouter();
 
+    useEffect(() => {
+        if (!currentUser) {
+            router.push('/account/login');
+        }
+    }, [currentUser, router]);
+
     const [activeLink, setActiveLink] = useState('Dashboard');
 
     const accountLinks = [
@@ -74,7 +80,7 @@ const DashboardLayout = ({ children }) => {
                 message: 'Logout Successful',
                 duration: 200,
             });
-            router.push('/')
+            router.push('/');
         } catch (error) {
             console.error(error);
         }

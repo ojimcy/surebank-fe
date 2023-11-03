@@ -6,7 +6,6 @@ import { useAuth } from '~/context/authContext';
 
 const Login = () => {
     const { currentUser, login } = useAuth();
-    const [submitting, setSubmitting] = useState(false);
 
     useEffect(() => {
         if (currentUser) {
@@ -24,7 +23,6 @@ const Login = () => {
     };
 
     const handleLoginSubmit = async (values) => {
-        setSubmitting(true);
         try {
             await login(values.username, values.password);
             notification.success({
@@ -38,8 +36,6 @@ const Login = () => {
                 description: error.message,
                 duration: 200,
             });
-        } finally {
-            setSubmitting(false);
         }
     };
 
@@ -111,13 +107,8 @@ const Login = () => {
                             <div className="form-group submit">
                                 <button
                                     type="submit"
-                                    className="ps-btn ps-btn--fullwidth"
-                                    disable={submitting}>
-                                    {submitting ? (
-                                        <Spin tip="Submitting..." />
-                                    ) : (
-                                        'Login'
-                                    )}
+                                    className="ps-btn ps-btn--fullwidth">
+                                    Login
                                 </button>
                             </div>
                         </div>

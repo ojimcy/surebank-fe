@@ -99,10 +99,6 @@ export function AuthProvider({ children }) {
                 refreshToken,
             });
             localStorage.removeItem('ACCESS_TOKEN_KEY');
-             Cookies.remove('cart');
-             Cookies.remove('cartItems');
-             Cookies.remove('shippingAddress');
-             Cookies.remove('wishlist');
             setCurrentUser(null);
         } catch (error) {
             console.error(error);

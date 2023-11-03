@@ -11,13 +11,15 @@ const OrderHistory = () => {
     const [tableData, setTableData] = useState([]);
 
     useEffect(() => {
-        const fetchOrderHistory = async () => {
-            const orders = await orderHistory(currentUser.id);
-            if (orders) {
-                setTableData(orders);
-            }
-        };
-        fetchOrderHistory();
+        if (currentUser) {
+            const fetchOrderHistory = async () => {
+                const orders = await orderHistory(currentUser.id);
+                if (orders) {
+                    setTableData(orders);
+                }
+            };
+            fetchOrderHistory();
+        }
     }, [currentUser]);
 
     const tableColumn = [

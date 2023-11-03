@@ -4,6 +4,7 @@ import BreadCrumb from '~/components/elements/BreadCrumb';
 import FooterDefault from '~/components/shared/footers/FooterDefault';
 import PageContainer from '~/components/layouts/PageContainer';
 import Dashboard from '~/components/partials/account/UserDashboard';
+import DashboardLayout from '~/components/layouts/DashboardLayout';
 
 const UserDashboard = () => {
     const breadCrumb = [
@@ -20,7 +21,9 @@ const UserDashboard = () => {
         <PageContainer footer={<FooterDefault />} title="User Dashboard">
             <div className="ps-page--my-account">
                 <BreadCrumb breacrumb={breadCrumb} />
-                <Dashboard />
+                <DashboardLayout>
+                    <Dashboard />
+                </DashboardLayout>
             </div>
         </PageContainer>
     );
