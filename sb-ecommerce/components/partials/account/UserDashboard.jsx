@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Tabs } from 'antd';
 import { formatNaira } from '~/utilities/formatNaira';
 import DSPackages from './DsPackage';
-import { getPackages } from '~/services/package.service';
+import { getPackages, getUserAccount } from '~/services/package.service';
 import { useAuth } from '~/context/authContext';
 
 const { TabPane } = Tabs;
@@ -11,23 +11,30 @@ const Dashboard = () => {
     const { currentUser } = useAuth();
     const [activeTab, setActiveTab] = useState('sbAccount');
     const [packages, setPackages] = useState([]);
+    const [customerData, setCustomerData] = useState({});
+    const [accountType, setAccountType] = useState('');
+
+    const fetchUserAccount = async () => {
+        const account = await getUserAccount(currentUser.id, accountType);
+        setCustomerData(account);
+    };
+    const fetchPackages = async () => {
+        const response = await getPackages(currentUser.id);
+        setPackages(response);
+    };
 
     useEffect(() => {
-        try {
-            if (currentUser) {
-                const fetchPackages = async () => {
-                    const response = await getPackages(currentUser?.id);
-                    setPackages(response);
-                };
-                fetchPackages();
-            }
-        } catch (error) {
-            console.error(error);
+        if (currentUser) {
+            fetchPackages();
+            fetchUserAccount();
         }
     }, [currentUser?.id]);
+
     const handleTabChange = (tab) => {
+        setAccountType(tab);
         setActiveTab(tab);
     };
+    
     return (
         <div className="dashboard-container">
             <div className="account-info d-flex justify-content-between align-items-center mt-5">
@@ -45,10 +52,10 @@ const Dashboard = () => {
                 </a>
             </div>
             <Tabs activeKey={activeTab} onChange={handleTabChange}>
-                <TabPane tab="SB Account" key="sbAccount">
+                <TabPane tab="SB Account" key="sb">
                     <DSPackages packages={packages} />
                 </TabPane>
-                <TabPane tab="DS Account" key="dsAccount">
+                <TabPane tab="DS Account" key="ds">
                     <p>DS Account content goes here.</p>
                 </TabPane>
             </Tabs>

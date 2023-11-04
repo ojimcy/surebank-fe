@@ -5,7 +5,6 @@ import HeaderActions from '~/components/shared/headers/modules/HeaderActions';
 import NavigationDefault from '~/components/shared/navigation/NavigationDefault';
 import ProductOnHeader from '~/components/elements/products/ProductOnHeader';
 import { stickyHeader } from '~/utilities/common-helpers';
-import Link from 'next/link';
 import Logo from '~/components/elements/common/Logo';
 
 const HeaderProduct = ({ product }) => {
@@ -27,7 +26,7 @@ const HeaderProduct = ({ product }) => {
                         <div className="menu--product-categories">
                             <div className="menu__toggle">
                                 <i className="icon-menu"></i>
-                                <span> Shop by Department</span>
+                                <span> Shop by Categories</span>
                             </div>
                             <div className="menu__content">
                                 <MenuCategories />

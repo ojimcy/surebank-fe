@@ -14,3 +14,10 @@ export const makeContribution = async (packageId, depositData) => {
     );
     return response.data;
 };
+
+export const getUserAccount = async (userId, accountType) => {
+    const response = await axiosService.get(
+        `/accounts/${userId}`
+    );
+    return response.data;
+};

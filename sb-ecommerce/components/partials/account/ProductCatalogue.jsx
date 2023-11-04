@@ -1,21 +1,25 @@
-import { Form, Input, Select, Spin, notification } from 'antd';
+import { Form, Input, Select, Spin, notification, Upload, Button } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { UploadOutlined } from '@ant-design/icons';
 import {
     createProductCatalogue,
-    getProductCatalogue,
+    getProducts,
+    uploadFile,
 } from '~/services/product.service';
+import { baseURL } from '~/repositories/axiosService';
 
 const AddProductCatalogue = () => {
     const Router = useRouter();
     const [products, setProducts] = useState([]);
     const [submitting, setSubmitting] = useState(false);
+    const [file, setFile] = useState(null);
 
     useEffect(() => {
         try {
             const fetchProducts = async () => {
-                const results = await getProductCatalogue();
+                const results = await getProducts();
                 setProducts(results.results);
             };
             fetchProducts();
@@ -34,18 +38,33 @@ const AddProductCatalogue = () => {
             Router.push('/account/product-catalogue');
         } catch (error) {
             notification.error({
-                message: ' failed to add product to catalogue',
+                message: 'Failed to add product to catalogue',
                 description: error.message,
             });
         } finally {
             setSubmitting(false);
         }
     };
+
+    const onFileChange = (info) => {
+        if (info.file.status === 'done') {
+            setFile(info.file.originFileObj);
+        }
+    };
+
+    const uploadProps = {
+        name: 'file',
+        action: `${baseURL}/upload`,
+        onChange: onFileChange,
+    };
+
     return (
         <Form className="ps-form--account-setting" onFinish={handleSubmit}>
             <div className="ps-form__header d-flex justify-content-between align-item-center mb-5">
                 <h3>Product Catalogue</h3>
-                <a href="/account/products/requests/create">Request New Product</a>
+                <a href="/account/products/requests/create">
+                    Request New Product
+                </a>
             </div>
             <div className="ps-form__content">
                 <div className="row">
@@ -78,7 +97,7 @@ const AddProductCatalogue = () => {
                     <div className="col-sm-6">
                         <div className="form-group">
                             <Form.Item
-                                name="title"
+                                name="name"
                                 rules={[
                                     {
                                         required: true,
@@ -118,14 +137,15 @@ const AddProductCatalogue = () => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please input fetured images!',
+                                        message:
+                                            'Please upload a featured image!',
                                     },
                                 ]}>
-                                <Input
-                                    className="form-control"
-                                    type="text"
-                                    placeholder="Featured images"
-                                />
+                                <Upload {...uploadProps}>
+                                    <Button icon={<UploadOutlined />}>
+                                        Upload Featured Image
+                                    </Button>
+                                </Upload>
                             </Form.Item>
                         </div>
                     </div>

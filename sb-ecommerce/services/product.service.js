@@ -70,3 +70,9 @@ export const getProductBySlug = async (collectionSlug) => {
     );
     return response.data;
 };
+
+export const uploadeFile = async (upladData) => {
+    const response = await axiosService.post(`/upload`, upladData);
+    console.log(response);
+    return response.data;
+};
