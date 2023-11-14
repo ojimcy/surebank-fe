@@ -6,7 +6,6 @@ import { UploadOutlined } from '@ant-design/icons';
 import {
     createProductCatalogue,
     getProducts,
-    uploadFile,
 } from '~/services/product.service';
 import { baseURL } from '~/repositories/axiosService';
 
@@ -15,6 +14,8 @@ const AddProductCatalogue = () => {
     const [products, setProducts] = useState([]);
     const [submitting, setSubmitting] = useState(false);
     const [file, setFile] = useState(null);
+    const [featuredImage, setFeaturedImage] = useState(null);
+    const [images, setImages] = useState([]);
 
     useEffect(() => {
         try {
@@ -31,11 +32,14 @@ const AddProductCatalogue = () => {
     const handleSubmit = async (values) => {
         setSubmitting(true);
         try {
+            values.featuredImage = featuredImage ? featuredImage.url : null;
+            values.images = images.map((image) => image.url);
+            console.log(values.images);
             await createProductCatalogue(values);
             notification.success({
                 message: 'Product added Successfully!',
             });
-            Router.push('/account/product-catalogue');
+            Router.push('/account/products');
         } catch (error) {
             notification.error({
                 message: 'Failed to add product to catalogue',
@@ -46,16 +50,33 @@ const AddProductCatalogue = () => {
         }
     };
 
-    const onFileChange = (info) => {
+    const onFeaturedImageChange = (info) => {
         if (info.file.status === 'done') {
-            setFile(info.file.originFileObj);
+            const imageUrl = info.file.response.secure_url;
+            setFeaturedImage({ url: imageUrl, uid: info.file.uid });
         }
     };
 
-    const uploadProps = {
+    const onImagesChange = (info) => {
+        if (info.file.status === 'done') {
+            const imageUrl = info.file.response.secure_url;
+            setImages((prevImages) => [
+                ...prevImages,
+                { url: imageUrl, uid: info.file.uid },
+            ]);
+        }
+    };
+
+    const featuredImageUploadProps = {
         name: 'file',
         action: `${baseURL}/upload`,
-        onChange: onFileChange,
+        onChange: onFeaturedImageChange,
+    };
+
+    const imagesUploadProps = {
+        name: 'file',
+        action: `${baseURL}/upload`,
+        onChange: onImagesChange,
     };
 
     return (
@@ -119,14 +140,15 @@ const AddProductCatalogue = () => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please select image!',
+                                        message:
+                                            'Please upload product images!',
                                     },
                                 ]}>
-                                <Input
-                                    className="form-control"
-                                    type="text"
-                                    placeholder="Images"
-                                />
+                                <Upload {...imagesUploadProps}>
+                                    <Button icon={<UploadOutlined />}>
+                                        Upload Product Images
+                                    </Button>
+                                </Upload>
                             </Form.Item>
                         </div>
                     </div>
@@ -141,7 +163,7 @@ const AddProductCatalogue = () => {
                                             'Please upload a featured image!',
                                     },
                                 ]}>
-                                <Upload {...uploadProps}>
+                                <Upload {...featuredImageUploadProps}>
                                     <Button icon={<UploadOutlined />}>
                                         Upload Featured Image
                                     </Button>
