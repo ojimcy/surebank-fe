@@ -9,21 +9,24 @@ export function useAppContext() {
 
 const AppProvider = ({ children }) => {
     const [appError, setAppError] = useState('');
-    const [userAccount, setUserAccount] = useState({});
+    const [customerData, setCustomerData] = useState({});
+    const [packages, setPackages] = useState([]);
     const [order, setOrder] = useState({});
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
 
     return (
         <AppContext.Provider
             value={{
                 appError,
                 setAppError,
-                userAccount,
-                setUserAccount,
+                customerData,
+                setCustomerData,
                 order,
                 setOrder,
                 loading,
                 setLoading,
+                packages,
+                setPackages,
             }}>
             {children}
         </AppContext.Provider>

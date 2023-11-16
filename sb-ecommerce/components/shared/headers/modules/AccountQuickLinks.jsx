@@ -24,7 +24,7 @@ const AccountQuickLinks = (props) => {
     const accountLinks = [
         {
             text: 'Dashboard',
-            url: '/account/user-dashboard',
+            url: '/account/dashboard',
             icon: 'icon-home',
             active: true,
         },

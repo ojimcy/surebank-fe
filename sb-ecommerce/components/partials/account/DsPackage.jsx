@@ -3,8 +3,10 @@ import { Card, Button, Progress, notification, Result } from 'antd';
 import { formatDate, formatNaira } from '~/utilities/formatNaira';
 import DepositModal from './modules/DepositModal';
 import { makeContribution } from '~/services/package.service';
+import { useAppContext } from '~/context/appContext';
 
 const DSPackages = ({ packages }) => {
+    const { customerData } = useAppContext();
     const [selectedPackage, setSelectedPackage] = useState(null);
     const [isDepositModalVisible, setIsDepositModalVisible] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -81,8 +83,12 @@ const DSPackages = ({ packages }) => {
                     </Card>
                 ))
             ) : (
-                <Result status="warning" title="No product Found." >
-                    <a className='ps-btn' href='/account/packages/create-ds-package'>Create one</a>
+                <Result status="warning" title="No package Found.">
+                    <a
+                        className="ps-btn"
+                        href="/account/packages/create-ds-package">
+                        Create one
+                    </a>
                 </Result>
             )}
 

@@ -54,7 +54,7 @@ export default function CreatePackage() {
                 message: 'Package created successfully!',
                 duration: 200,
             });
-            router.push(`/account/user-dashboard`);
+            router.push(`/account/dashboard`);
         } catch (error) {
             if (
                 error.response &&
@@ -112,7 +112,8 @@ export default function CreatePackage() {
                                 <Input
                                     type="mumber"
                                     readOnly
-                                    className="form-control" placeholder='Account Number'
+                                    className="form-control"
+                                    placeholder="Account Number"
                                 />
                             </Form.Item>
                             <Form.Item
@@ -126,7 +127,8 @@ export default function CreatePackage() {
                                 ]}>
                                 <Select
                                     onChange={(value) => setTarget(value)}
-                                    className="form-control" placeholder="Select Target">
+                                    className="form-control"
+                                    placeholder="Select Target">
                                     {targetOptions.map((targetOption) => (
                                         <Option
                                             key={targetOption}
@@ -173,7 +175,11 @@ export default function CreatePackage() {
                                         message: 'Amount is required',
                                     },
                                 ]}>
-                                <Input type="number" className="form-control" placeholder='Ampount Per Day'/>
+                                <Input
+                                    type="number"
+                                    className="form-control"
+                                    placeholder="Ampount Per Day"
+                                />
                             </Form.Item>
                             <div className="form-group submit">
                                 <button
