@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input, notification, Spin } from 'antd';
 import Link from 'next/link';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { useAuth } from '~/context/authContext';
 
 const Login = () => {
     const { currentUser, login } = useAuth();
+    const router = useRouter();
 
     useEffect(() => {
         if (currentUser) {
-            Router.push('/');
+            router.push('/');
         }
     }, [currentUser]);
 
@@ -29,7 +30,7 @@ const Login = () => {
                 message: 'Login Successfull!',
                 duration: 200,
             });
-            Router.push('/');
+            router.push('/');
         } catch (error) {
             notification.error({
                 message: 'Login Failed',
