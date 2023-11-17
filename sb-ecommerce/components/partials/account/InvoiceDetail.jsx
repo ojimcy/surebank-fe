@@ -14,7 +14,7 @@ class InvoiceDetail extends Component {
         const accountLinks = [
             {
                 text: 'Account Information',
-                url: '/account/user-information',
+                url: '/account/profile',
                 icon: 'icon-user',
             },
             {
@@ -157,7 +157,7 @@ class InvoiceDetail extends Component {
                                                 </thead>
                                                 <tbody>
                                                     {invoiceProducts.map(
-                                                        product => (
+                                                        (product) => (
                                                             <tr
                                                                 key={
                                                                     product.id

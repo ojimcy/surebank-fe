@@ -67,13 +67,13 @@ class MyAccount extends Component {
                                             <a>recent orders</a>
                                         </Link>
                                         , manage your{' '}
-                                        <Link href="/account/user-information">
+                                        <Link href="/account/profile">
                                             <a>
                                                 shipping and billing addresses
                                             </a>
                                         </Link>
                                         , and{' '}
-                                        <Link href="/account/user-information">
+                                        <Link href="/account/profile">
                                             <a>
                                                 edit your password and account
                                                 details

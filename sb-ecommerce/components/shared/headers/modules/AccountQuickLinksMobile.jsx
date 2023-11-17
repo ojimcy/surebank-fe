@@ -25,30 +25,28 @@ const AccountQuickLinks = () => {
         {
             text: 'Dashboard',
             url: '/account/dashboard',
+            icon: 'icon-home',
+            active: true,
         },
         {
-            text: 'Account Information',
-            url: '/account/user-information',
-        },
-        {
-            text: 'Notifications',
-            url: '/account/notifications',
-        },
-        {
-            text: 'Invoices',
-            url: '/account/invoices',
-        },
-        {
-            text: 'Address',
-            url: '/account/addresses',
-        },
-        {
-            text: 'Recent Viewed Product',
-            url: '/account/recent-viewed-product',
+            text: 'Orders',
+            url: '/account/orders/order-history',
+            icon: 'icon-map-marker',
         },
         {
             text: 'Wishlist',
             url: '/account/wishlist',
+            icon: 'icon-heart',
+        },
+        {
+            text: 'Profile',
+            url: '/account/profile',
+            icon: 'icon-user',
+        },
+        {
+            text: 'Invoices',
+            url: '/account/invoices',
+            icon: 'icon-papers',
         },
     ];
 

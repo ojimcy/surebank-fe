@@ -23,16 +23,6 @@ const DashboardLayout = ({ children }) => {
             active: true,
         },
         {
-            text: 'Account Information',
-            url: '/account/user-information',
-            icon: 'icon-user',
-        },
-        {
-            text: 'Invoices',
-            url: '/account/invoices',
-            icon: 'icon-papers',
-        },
-        {
             text: 'Orders',
             url: '/account/orders/order-history',
             icon: 'icon-map-marker',
@@ -43,11 +33,27 @@ const DashboardLayout = ({ children }) => {
             icon: 'icon-heart',
         },
         {
-            text: 'Products',
-            url: '/account/products',
-            icon: 'icon-store',
+            text: 'Profile',
+            url: '/account/profile',
+            icon: 'icon-user',
+        },
+        {
+            text: 'Invoices',
+            url: '/account/invoices',
+            icon: 'icon-papers',
         },
     ];
+
+    if (currentUser && currentUser.role !== 'user') {
+        accountLinks.push({
+            text: 'View Products',
+            url: '/shop/products/all-requests',
+        });
+        accountLinks.push({
+            text: 'Products',
+            url: '/account/products',
+        });
+    }
 
     useEffect(() => {
         // Update active link based on the current route

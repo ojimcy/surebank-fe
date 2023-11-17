@@ -107,7 +107,7 @@ const FooterWidgets = () => (
                     </Link>
                 </li>
                 <li>
-                    <Link href="/account/user-information">
+                    <Link href="/account/profile">
                         <a>My account</a>
                     </Link>
                 </li>

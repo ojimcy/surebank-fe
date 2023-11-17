@@ -14,7 +14,7 @@ class Notifications extends Component {
         const accountLinks = [
             {
                 text: 'Account Information',
-                url: '/account/user-information',
+                url: '/account/profile',
                 icon: 'icon-user',
             },
             {

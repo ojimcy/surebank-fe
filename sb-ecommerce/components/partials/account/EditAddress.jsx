@@ -12,7 +12,7 @@ class EditAddress extends Component {
         const accountLinks = [
             {
                 text: 'Account Information',
-                url: '/account/user-information',
+                url: '/account/profile',
                 icon: 'icon-user',
             },
             {
@@ -58,7 +58,7 @@ class EditAddress extends Component {
                                     </div>
                                     <div className="ps-widget__content">
                                         <ul>
-                                            {accountLinks.map(link => (
+                                            {accountLinks.map((link) => (
                                                 <li
                                                     key={link.text}
                                                     className={

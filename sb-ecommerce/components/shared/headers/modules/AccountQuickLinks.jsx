@@ -21,22 +21,13 @@ const AccountQuickLinks = (props) => {
             console.error(error);
         }
     };
+
     const accountLinks = [
         {
             text: 'Dashboard',
             url: '/account/dashboard',
             icon: 'icon-home',
             active: true,
-        },
-        {
-            text: 'Account Information',
-            url: '/account/user-information',
-            icon: 'icon-user',
-        },
-        {
-            text: 'Invoices',
-            url: '/account/invoices',
-            icon: 'icon-papers',
         },
         {
             text: 'Orders',
@@ -48,9 +39,23 @@ const AccountQuickLinks = (props) => {
             url: '/account/wishlist',
             icon: 'icon-heart',
         },
+        {
+            text: 'Profile',
+            url: '/account/profile',
+            icon: 'icon-user',
+        },
+        {
+            text: 'Invoices',
+            url: '/account/invoices',
+            icon: 'icon-papers',
+        },
     ];
 
     if (currentUser && currentUser.role !== 'user') {
+        accountLinks.push({
+            text: 'View Products',
+            url: '/shop/products/all-requests',
+        });
         accountLinks.push({
             text: 'Products',
             url: '/account/products',
