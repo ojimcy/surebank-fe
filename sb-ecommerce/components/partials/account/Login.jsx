@@ -7,6 +7,7 @@ import { useAuth } from '~/context/authContext';
 const Login = () => {
     const { currentUser, login } = useAuth();
     const router = useRouter();
+    const { redirect } = router.query;
 
     useEffect(() => {
         if (currentUser) {
@@ -30,7 +31,7 @@ const Login = () => {
                 message: 'Login Successfull!',
                 duration: 200,
             });
-            router.push('/');
+            router.push(redirect || '/');
         } catch (error) {
             notification.error({
                 message: 'Login Failed',

@@ -10,7 +10,8 @@ export function useAppContext() {
 const AppProvider = ({ children }) => {
     const [appError, setAppError] = useState('');
     const [customerData, setCustomerData] = useState({});
-    const [packages, setPackages] = useState([]);
+    const [sbPackages, setSbPackages] = useState([]);
+    const [dsPackages, setDsPackages] = useState([]);
     const [order, setOrder] = useState({});
     const [loading, setLoading] = useState(false);
 
@@ -25,8 +26,10 @@ const AppProvider = ({ children }) => {
                 setOrder,
                 loading,
                 setLoading,
-                packages,
-                setPackages,
+                sbPackages,
+                setSbPackages,
+                dsPackages,
+                setDsPackages,
             }}>
             {children}
         </AppContext.Provider>

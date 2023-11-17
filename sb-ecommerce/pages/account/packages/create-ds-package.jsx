@@ -180,8 +180,7 @@ export default function CreatePackage() {
                                 </Form.Item>
                                 <div className="form-group submit">
                                     <button
-                                        type="primary"
-                                        htmlType="submit"
+                                        type="submit"
                                         className="ps-btn">
                                         Save
                                     </button>

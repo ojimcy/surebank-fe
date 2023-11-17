@@ -6,7 +6,7 @@ import { getPackages, getUserAccount } from '~/services/package.service';
 import { useAuth } from '~/context/authContext';
 import { useAppContext } from '~/context/appContext';
 import CreateAccountModal from './modules/CreateAccountModal';
-import { createAccount, getBranches } from '~/services/user.service';
+import { createAccount } from '~/services/user.service';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -14,7 +14,7 @@ const { TabPane } = Tabs;
 
 const Dashboard = () => {
     const { currentUser } = useAuth();
-    const { packages, setPackages } = useAppContext();
+    const { sbPackages, setSbPackages } = useAppContext();
     const router = useRouter();
     const [activeTab, setActiveTab] = useState('sb');
     const [accountType, setAccountType] = useState('');
@@ -31,7 +31,7 @@ const Dashboard = () => {
 
     const fetchPackages = async () => {
         const response = await getPackages(currentUser.id);
-        setPackages(response);
+        setSbPackages(response);
     };
 
     useEffect(() => {
@@ -39,7 +39,7 @@ const Dashboard = () => {
             fetchPackages();
             fetchUserAccount();
         }
-    }, [currentUser?.id, customerData]);
+    }, [currentUser?.id]);
 
     const handleTabChange = (tab) => {
         setAccountType(tab);
@@ -78,7 +78,10 @@ const Dashboard = () => {
             <div className="account-info d-flex justify-content-between align-items-center mt-5">
                 <div className="balance d-flex align-items-center">
                     <p className="font-weight-bold">
-                        Balance: {formatNaira(1000)}
+                        Balance:{' '}
+                        {customerData &&
+                            customerData.availableBalance &&
+                            formatNaira(customerData.availableBalance)}
                     </p>
                 </div>
 
@@ -97,7 +100,7 @@ const Dashboard = () => {
                     <p>Lists of user's packages</p>
                 </div>
 
-                {!customerData || Object.keys(customerData).length === 0 ? (
+                {!customerData ? (
                     <Button type="primary" onClick={handleCreateAccount}>
                         Create Account
                     </Button>
@@ -110,10 +113,10 @@ const Dashboard = () => {
             <hr style={{ color: '#333' }} />
 
             <Tabs activeKey={activeTab} onChange={handleTabChange}>
-                <TabPane tab="SB Account" key="sb">
-                    <DSPackages packages={packages} />
-                </TabPane>
                 <TabPane tab="DS Account" key="ds">
+                    <DSPackages packages={sbPackages} />
+                </TabPane>
+                <TabPane tab="SB Account" key="sb">
                     <p>DS Account content goes here.</p>
                 </TabPane>
             </Tabs>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Modal, Form, Select } from 'antd';
 import { getBranches } from '~/services/user.service';
 
@@ -6,11 +6,15 @@ const { Option } = Select;
 
 const CreateAccountModal = ({ visible, onCancel, onFinish }) => {
     const [branches, setBranches] = useState([]);
+    const isMounted = useRef(true);
 
     useEffect(() => {
+        isMounted.current = true;
         const fetchBranches = async () => {
             const response = await getBranches();
-            setBranches(response.results);
+            if (isMounted.current) {
+                setBranches(response.results);
+            }
         };
 
         fetchBranches();
