@@ -12,7 +12,6 @@ import { useAppContext } from '~/context/appContext';
 import CreateAccountModal from './modules/CreateAccountModal';
 import { createAccount } from '~/services/user.service';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import SbPackage from './SbPackage';
 
 const { TabPane } = Tabs;
@@ -92,7 +91,6 @@ const Dashboard = () => {
             });
         }
     };
-
     return (
         <div className="dashboard-container">
             <div className="account-info d-flex justify-content-between align-items-center mt-5">

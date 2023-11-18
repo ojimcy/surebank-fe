@@ -146,8 +146,8 @@ const SbPackage = ({ packages, createAccount }) => {
                     />
                 )}
                 <CreateSbPackageModal
-                    isOpen={isCreatePackageModalVisible}
-                    onClose={handleCloseCreatePackageModal}
+                    visible={isCreatePackageModalVisible}
+                    onCancel={handleCloseCreatePackageModal}
                 />
             </div>
         </>

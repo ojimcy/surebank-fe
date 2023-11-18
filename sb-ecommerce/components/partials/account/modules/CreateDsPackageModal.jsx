@@ -63,9 +63,6 @@ const CreateDsPackageModal = ({ visible, onCancel, onPackageCreated, customerDat
             onCancel={onCancel}
             footer={null}>
             <Form onFinish={onFinish} layout="vertical">
-                <div className="ps-form__header">
-                    <h3>Create Package</h3>
-                </div>
                 <div className="ps-form__content">
                     <Form.Item
                         label="Account Number"

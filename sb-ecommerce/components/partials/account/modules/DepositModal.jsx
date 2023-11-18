@@ -1,19 +1,15 @@
-import React from 'react';
-import { Modal, InputNumber } from 'antd';
+import React, { useState } from 'react';
+import { Modal } from 'antd';
 import { formatNaira } from '~/utilities/formatNaira';
 
-const DepositModal = ({
-    visible,
-    onCancel,
-    dsPackage,
-    onDeposit,
-}) => {
+const DepositModal = ({ visible, onCancel, dsPackage, onDeposit }) => {
+    const [depositAmount, setDepositAmount] = useState('');
     return (
         <Modal
             visible={visible}
             title="Deposit"
             onCancel={onCancel}
-            onOk={() => onDeposit(dsPackage.amountPerDay)}>
+            onOk={() => onDeposit(depositAmount)}>
             <div className="d-flex align-items-center flex-column">
                 <p>Target: {dsPackage.target}</p>
                 <p>Amount Per Day: {formatNaira(dsPackage.amountPerDay)}</p>
@@ -27,8 +23,11 @@ const DepositModal = ({
                                 type="number"
                                 min={dsPackage.amountPerDay}
                                 step={dsPackage.amountPerDay}
-                                name='amount'
+                                name="amount"
                                 placeholder="Amount"
+                                onChange={(e) =>
+                                    setDepositAmount(e.target.value)
+                                }
                             />
                         </div>
                     </div>

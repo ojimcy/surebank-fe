@@ -81,73 +81,75 @@ const CreateSbPackageModal = ({ visible, onCancel }) => {
             visible={visible}
             onCancel={onCancel}
             footer={null}>
-            <Form onFinish={onFinish}>
-                <Form.Item
-                    label="Account Number"
-                    name="accountNumber"
-                    initialValue={customerData?.accountNumber}
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Account number is required',
-                        },
-                    ]}>
-                    <Input type="text" disabled />
-                </Form.Item>
+            <Form onFinish={onFinish} layout="vertical">
+                <div className="ps-form__content">
+                    <Form.Item
+                        label="Account Number"
+                        name="accountNumber"
+                        initialValue={customerData?.accountNumber}
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Account number is required',
+                            },
+                        ]}>
+                        <Input type="text" className='form-control' disabled />
+                    </Form.Item>
 
-                <Form.Item
-                    label="Select Product"
-                    name="product"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Select a product',
-                        },
-                    ]}>
-                    <Select
-                        onChange={handleProductSelection}
-                        placeholder="Select a product">
-                        {products.map((product) => (
-                            <Option key={product.id} value={product.id}>
-                                {product.name}
-                            </Option>
-                        ))}
-                    </Select>
-                </Form.Item>
+                    <Form.Item
+                        label="Select Product"
+                        name="product"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Select a product',
+                            },
+                        ]}>
+                        <Select
+                            onChange={handleProductSelection}
+                            placeholder="Select a product">
+                            {products.map((product) => (
+                                <Option key={product.id} value={product.id}>
+                                    {product.name}
+                                </Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
 
-                {selectedProduct && (
-                    <>
-                        <Spin spinning={loading}>
-                            <img
-                                src={productDetails?.image} // TODO: Replace with the actual image source
-                                alt={productDetails?.name}
-                                style={{
-                                    width: '100px',
-                                    height: '100px',
-                                    borderRadius: '10px',
-                                }}
-                            />
-                            <div>
-                                <p>{productDetails?.name}</p>
-                                <p
+                    {selectedProduct && (
+                        <>
+                            <Spin spinning={loading}>
+                                <img
+                                    src={productDetails?.image} // TODO: Replace with the actual image source
+                                    alt={productDetails?.name}
                                     style={{
-                                        fontSize: '16px',
-                                        fontWeight: 'bold',
-                                    }}>
-                                    {productDetails && productDetails.price
-                                        ? formatNaira(productDetails.price)
-                                        : 'Price not available'}
-                                </p>
-                            </div>
-                        </Spin>
-                    </>
-                )}
+                                        width: '100px',
+                                        height: '100px',
+                                        borderRadius: '10px',
+                                    }}
+                                />
+                                <div>
+                                    <p>{productDetails?.name}</p>
+                                    <p
+                                        style={{
+                                            fontSize: '16px',
+                                            fontWeight: 'bold',
+                                        }}>
+                                        {productDetails && productDetails.price
+                                            ? formatNaira(productDetails.price)
+                                            : 'Price not available'}
+                                    </p>
+                                </div>
+                            </Spin>
+                        </>
+                    )}
 
-                <Form.Item>
-                    <button type="submit" className="ps-btn">
-                        Create Package
-                    </button>
-                </Form.Item>
+                    <Form.Item>
+                        <button type="submit" className="ps-btn">
+                            Create Package
+                        </button>
+                    </Form.Item>
+                </div>
             </Form>
         </Modal>
     );

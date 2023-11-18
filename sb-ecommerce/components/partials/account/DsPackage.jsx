@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Card, Button, Progress, notification, Result } from 'antd';
 import { formatDate, formatNaira } from '~/utilities/formatNaira';
 import DepositModal from './modules/DepositModal';
-import { makeContribution } from '~/services/package.service';
+import { getPackages, makeContribution } from '~/services/package.service';
 import { useAppContext } from '~/context/appContext';
 import CreateDsPackageModal from './modules/CreateDsPackageModal';
+import { useAuth } from '~/context/authContext';
 
-const DSPackages = ({ packages, createAccount }) => {
-    const { customerData } = useAppContext();
+const DSPackages = ({ createAccount }) => {
+    const { currentUser } = useAuth();
+    const { customerData, dsPackages, setDsPackages } = useAppContext();
     const [selectedPackage, setSelectedPackage] = useState(null);
     const [isDepositModalVisible, setIsDepositModalVisible] = useState(false);
     const [
@@ -33,13 +35,18 @@ const DSPackages = ({ packages, createAccount }) => {
         setIsCreatePackageModalVisible(false);
     };
 
+    const fetchPackages = async () => {
+        const response = await getPackages(currentUser.id);
+        setDsPackages(response);
+    };
+
     const handleDeposit = async (depositAmount) => {
         const depositData = {
             target: selectedPackage.target,
             accountNumber: selectedPackage.accountNumber,
             amount: parseFloat(depositAmount),
         };
-
+console.log(depositAmount);
         try {
             setLoading(true);
             await makeContribution(selectedPackage.id, depositData);
@@ -50,6 +57,7 @@ const DSPackages = ({ packages, createAccount }) => {
             });
             setLoading(false);
             handleCloseDepositModal();
+            fetchPackages();
         } catch (error) {
             console.error(error);
             notification.error({
@@ -85,8 +93,8 @@ const DSPackages = ({ packages, createAccount }) => {
             </div>
             <hr style={{ color: '#333' }} />
             <div className="packagesContainer">
-                {packages && packages.length !== 0 ? (
-                    packages.map((p) => (
+                {dsPackages && dsPackages.length !== 0 ? (
+                    dsPackages.map((p) => (
                         <Card key={p.id} className="packageCard">
                             <h4 className="text-center">{p.target}</h4>
                             <p>
