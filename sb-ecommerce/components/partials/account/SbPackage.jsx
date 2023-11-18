@@ -3,10 +3,10 @@ import { Card, Button, Progress, notification, Result } from 'antd';
 import { formatDate, formatNaira } from '~/utilities/formatNaira';
 import DepositModal from './modules/DepositModal';
 import { makeContribution } from '~/services/package.service';
+import CreateSbPackageModal from './modules/CreateSbPackageModal';
 import { useAppContext } from '~/context/appContext';
-import CreateDsPackageModal from './modules/CreateDsPackageModal';
 
-const DSPackages = ({ packages, createAccount }) => {
+const SbPackage = ({ packages, createAccount }) => {
     const { customerData } = useAppContext();
     const [selectedPackage, setSelectedPackage] = useState(null);
     const [isDepositModalVisible, setIsDepositModalVisible] = useState(false);
@@ -16,21 +16,13 @@ const DSPackages = ({ packages, createAccount }) => {
     ] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const handleOpenDepositModal = (dspackage) => {
-        setSelectedPackage(dspackage);
+    const handleOpenDepositModal = (dsPackage) => {
+        setSelectedPackage(dsPackage);
         setIsDepositModalVisible(true);
     };
 
     const handleCloseDepositModal = () => {
         setIsDepositModalVisible(false);
-    };
-
-    const handleOpenCreatePackageModal = () => {
-        setIsCreatePackageModalVisible(true);
-    };
-
-    const handleCloseCreatePackageModal = () => {
-        setIsCreatePackageModalVisible(false);
     };
 
     const handleDeposit = async (depositAmount) => {
@@ -63,6 +55,14 @@ const DSPackages = ({ packages, createAccount }) => {
         }
     };
 
+    const handleOpenCreatePackageModal = () => {
+        setIsCreatePackageModalVisible(true);
+    };
+
+    const handleCloseCreatePackageModal = () => {
+        setIsCreatePackageModalVisible(false);
+    };
+
     return (
         <>
             <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -87,7 +87,16 @@ const DSPackages = ({ packages, createAccount }) => {
             <div className="packagesContainer">
                 {packages && packages.length !== 0 ? (
                     packages.map((p) => (
-                        <Card key={p.id} className="packageCard">
+                        <Card
+                            key={p.id}
+                            className="packageCard"
+                            hoverable
+                            cover={
+                                <img
+                                    alt="product"
+                                    src={p.products.featuredImage}
+                                />
+                            }>
                             <h4 className="text-center">{p.target}</h4>
                             <p>
                                 Total Contribution:{' '}
@@ -119,12 +128,12 @@ const DSPackages = ({ packages, createAccount }) => {
                         </Card>
                     ))
                 ) : (
-                    <Result status="warning" title="No package Found.">
-                        <a
+                    <Result status="warning" title="No sb package Found.">
+                        <button
                             className="ps-btn"
-                            href="/account/packages/create-ds-package">
+                            onClick={handleOpenCreatePackageModal}>
                             Create one
-                        </a>
+                        </button>
                     </Result>
                 )}
 
@@ -136,16 +145,13 @@ const DSPackages = ({ packages, createAccount }) => {
                         onDeposit={handleDeposit}
                     />
                 )}
-
-                <CreateDsPackageModal
-                    visible={isCreatePackageModalVisible}
-                    onCancel={handleCloseCreatePackageModal}
-                    customerData={customerData}
-                    onPackageCreated={handleCloseCreatePackageModal}
+                <CreateSbPackageModal
+                    isOpen={isCreatePackageModalVisible}
+                    onClose={handleCloseCreatePackageModal}
                 />
             </div>
         </>
     );
 };
 
-export default DSPackages;
+export default SbPackage;

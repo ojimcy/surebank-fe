@@ -3,7 +3,6 @@ import { Form, Input, Select, Button, Modal, notification } from 'antd';
 import { useRouter } from 'next/router';
 import axiosService from '~/repositories/axiosService';
 import { useAppContext } from '~/context/appContext';
-import { useAuth } from '~/context/authContext';
 import DashboardLayout from '~/components/layouts/DashboardLayout';
 import BreadCrumb from '~/components/elements/BreadCrumb';
 import PageContainer from '~/components/layouts/PageContainer';
@@ -69,6 +68,10 @@ export default function CreatePackage() {
         {
             text: 'Home',
             url: '/',
+        },
+        {
+            text: 'Packages',
+            url: '/account/dashboard',
         },
         {
             text: 'Create Package',

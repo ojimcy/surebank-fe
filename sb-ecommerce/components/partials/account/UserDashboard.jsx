@@ -2,42 +2,62 @@ import React, { useEffect, useState } from 'react';
 import { Button, Tabs, notification } from 'antd';
 import { formatNaira } from '~/utilities/formatNaira';
 import DSPackages from './DsPackage';
-import { getPackages, getUserAccount } from '~/services/package.service';
+import {
+    getPackages,
+    getSbPackages,
+    getUserAccount,
+} from '~/services/package.service';
 import { useAuth } from '~/context/authContext';
 import { useAppContext } from '~/context/appContext';
 import CreateAccountModal from './modules/CreateAccountModal';
 import { createAccount } from '~/services/user.service';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import SbPackage from './SbPackage';
 
 const { TabPane } = Tabs;
 
 const Dashboard = () => {
     const { currentUser } = useAuth();
-    const { sbPackages, setSbPackages } = useAppContext();
+    const {
+        dsPackages,
+        setDsPackages,
+        sbPackages,
+        setSbPackages,
+        customerData,
+        setCustomerData,
+    } = useAppContext();
     const router = useRouter();
-    const [activeTab, setActiveTab] = useState('sb');
+    const [activeTab, setActiveTab] = useState('ds');
     const [accountType, setAccountType] = useState('');
     const [
         isCreateAccountModalVisible,
         setCreateAccountModalVisible,
     ] = useState(false);
-    const [customerData, setCustomerData] = useState({});
-
-    const fetchUserAccount = async () => {
-        const account = await getUserAccount(currentUser.id, accountType);
-        setCustomerData(account);
-    };
 
     const fetchPackages = async () => {
         const response = await getPackages(currentUser.id);
+        setDsPackages(response);
+    };
+
+    const fetchSbackages = async () => {
+        const response = await getSbPackages(currentUser.id);
         setSbPackages(response);
     };
 
     useEffect(() => {
+        const fetchUserAccount = async () => {
+            const account = await getUserAccount(currentUser.id, accountType);
+            setCustomerData(account);
+        };
+
+        fetchUserAccount();
+    }, []);
+
+    useEffect(() => {
         if (currentUser) {
             fetchPackages();
-            fetchUserAccount();
+            fetchSbackages();
         }
     }, [currentUser?.id]);
 
@@ -94,30 +114,18 @@ const Dashboard = () => {
             </div>
             <hr style={{ color: '#333', marginBottom: '15px' }} />
 
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-                <div style={{ flex: 1 }}>
-                    <h4>Packages</h4>
-                    <p>Lists of user's packages</p>
-                </div>
-
-                {!customerData ? (
-                    <Button type="primary" onClick={handleCreateAccount}>
-                        Create Account
-                    </Button>
-                ) : (
-                    <Link href="/account/packages/create-ds-package">
-                        <Button type="primary">Create Package</Button>
-                    </Link>
-                )}
-            </div>
-            <hr style={{ color: '#333' }} />
-
             <Tabs activeKey={activeTab} onChange={handleTabChange}>
                 <TabPane tab="DS Account" key="ds">
-                    <DSPackages packages={sbPackages} />
+                    <DSPackages
+                        createAccount={handleCreateAccount}
+                        packages={dsPackages}
+                    />
                 </TabPane>
                 <TabPane tab="SB Account" key="sb">
-                    <p>DS Account content goes here.</p>
+                    <SbPackage
+                        createAccount={handleCreateAccount}
+                        packages={sbPackages}
+                    />
                 </TabPane>
             </Tabs>
 

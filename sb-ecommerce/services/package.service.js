@@ -16,8 +16,21 @@ export const makeContribution = async (packageId, depositData) => {
 };
 
 export const getUserAccount = async (userId, accountType) => {
+    const response = await axiosService.get(`/accounts/${userId}`);
+    return response.data;
+};
+
+export const getSbPackages = async (userId) => {
     const response = await axiosService.get(
-        `/accounts/${userId}`
+        `daily-savings/sb/package?userId=${userId}`
+    );
+    return response.data;
+};
+
+export const createDsPackage = async (packageData) => {
+    const response = await axiosService.post(
+        `/daily-savings/sb/package`,
+        packageData
     );
     return response.data;
 };
