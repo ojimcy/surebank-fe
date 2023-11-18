@@ -12,30 +12,45 @@ export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null);
 
     useEffect(() => {
-        if (typeof window !== 'undefined') {
-            // Access browser-specific features here
-            const token = localStorage.getItem('ACCESS_TOKEN_KEY');
-            if (token) {
-                const fetchUser = async () => {
-                    try {
-                        const userResponse = await axios.get(
-                            'http://localhost:3000/v1/users/me',
-                            {
-                                headers: {
-                                    Authorization: `Bearer ${token}`,
-                                },
-                            }
-                        );
-                        setCurrentUser(userResponse.data);
-                    } catch (error) {
-                        console.error(error);
-                        setCurrentUser(null);
+        const token = localStorage.getItem('ACCESS_TOKEN_KEY');
+
+        const fetchUser = async () => {
+            try {
+                const userResponse = await axios.get(
+                    'http://localhost:3000/v1/users/me',
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
                     }
-                };
-                fetchUser();
+                );
+                setCurrentUser(userResponse.data);
+            } catch (error) {
+                console.error(error);
+                setCurrentUser(null);
+                throw error; 
             }
+        };
+
+        if (token) {
+            fetchUser();
         }
     }, []);
+
+    const fetchUser = async () => {
+        try {
+            const userResponse = await axios.get('http://localhost:3000/v1/users/me', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN_KEY')}`,
+                },
+            });
+            setCurrentUser(userResponse.data);
+        } catch (error) {
+            console.error(error);
+            setCurrentUser(null);
+            throw error; // Re-throw the error to be caught in the component
+        }
+    };
 
     const register = async (userData) => {
         try {
@@ -106,7 +121,7 @@ export function AuthProvider({ children }) {
 
     return (
         <AuthContext.Provider
-            value={{ currentUser, setCurrentUser, register, login, logout }}>
+            value={{ currentUser, setCurrentUser, register, login, logout, fetchUser }}>
             {children}
         </AuthContext.Provider>
     );

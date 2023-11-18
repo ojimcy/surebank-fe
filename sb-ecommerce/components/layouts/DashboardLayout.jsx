@@ -4,14 +4,28 @@ import { useAuth } from '~/context/authContext';
 import { useRouter } from 'next/router';
 
 const DashboardLayout = ({ children }) => {
-    const { currentUser, logout } = useAuth();
+    const { currentUser, logout, fetchUser } = useAuth();
     const router = useRouter();
+    const [loading, setLoading] = useState(true);
 
-    // useEffect(() => {
-    //     if (!currentUser) {
-    //         router.push('/account/login');
-    //     }
-    // }, [currentUser, router]);
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                await fetchUser();
+                setLoading(false);
+            } catch (error) {
+                console.error(error);
+                setLoading(false);
+                router.push('/account/login');
+            }
+        };
+
+        if (!currentUser) {
+            fetchUserData();
+        } else {
+            setLoading(false);
+        }
+    }, [currentUser, fetchUser, router]);
 
     const [activeLink, setActiveLink] = useState('Dashboard');
 
@@ -87,6 +101,10 @@ const DashboardLayout = ({ children }) => {
             console.error(error);
         }
     };
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <section className="ps-my-account ps-page--account">
