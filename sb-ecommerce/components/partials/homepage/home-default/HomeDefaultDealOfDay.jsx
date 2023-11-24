@@ -27,7 +27,7 @@ const HomeDefaultDealOfDay = ({ collectionSlug }) => {
     useEffect(() => {
         getProducts(collectionSlug);
     }, [collectionSlug]);
-    // Views
+    // Viewsz
     let productItemsView;
     if (!loading) {
         if (productItems && productItems.length > 0) {

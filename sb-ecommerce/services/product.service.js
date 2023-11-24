@@ -73,6 +73,5 @@ export const getProductBySlug = async (collectionSlug) => {
 
 export const uploadeFile = async (upladData) => {
     const response = await axiosService.post(`/upload`, upladData);
-    console.log(response);
     return response.data;
 };

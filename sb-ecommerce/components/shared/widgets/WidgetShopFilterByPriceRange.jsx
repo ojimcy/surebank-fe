@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Slider, Checkbox } from 'antd';
 import { useRouter } from 'next/router';
+import { formatNaira } from '~/utilities/formatNaira';
 
 const WidgetShopFilterByPriceRange = () => {
     const Router = useRouter();
     const [min, setMin] = useState(0);
-    const [max, setMax] = useState(2000);
+    const [max, setMax] = useState(500000);
 
     function handleChangeRange(value) {
         setMin(value[0]);
@@ -24,12 +25,12 @@ const WidgetShopFilterByPriceRange = () => {
                 <h4 className="widget-title">By Price</h4>
                 <Slider
                     range
-                    defaultValue={[0, 2000]}
-                    max={2000}
+                    defaultValue={[0, 500000]}
+                    max={500000}
                     onAfterChange={(e) => handleChangeRange(e)}
                 />
                 <p>
-                    Price: ${min} - $ {max}
+                    Price: {formatNaira(min)} - {formatNaira(max)}
                 </p>
             </figure>
         </aside>

@@ -5,13 +5,15 @@ const MegaMenu = ({ source }) => {
     let megaContentView;
     if (source) {
         megaContentView = source.megaContent.map((item) => (
-            <div className="mega-menu__column" key={item.heading}>
+            <div className="mega-menu__column" key={item._id}>
                 <h4>{item.heading}</h4>
                 <ul className="mega-menu__list">
                     {item.megaItems.map((subItem) => (
-                        <li key={subItem.text}>
-                            <Link href={subItem.url} as={subItem.url}>
-                                <a>{subItem.text}</a>
+                        <li key={subItem.name}>
+                            <Link
+                                href={`/category/${item.slug}`}
+                                as={subItem.slug}>
+                                <a>{subItem.name}</a>
                             </Link>
                         </li>
                     ))}
@@ -21,10 +23,10 @@ const MegaMenu = ({ source }) => {
     }
     return (
         <li className="menu-item-has-children has-mega-menu">
-            <Link href={source.url !== '' ? source.url : '/'}>
+            <Link href={source.slug !== '' ? source.slug : '/'}>
                 <a>
                     {source.icon && <i className={source.icon}></i>}
-                    {source.text}
+                    {source.name}
                 </a>
             </Link>
             <div className="mega-menu">{megaContentView}</div>

@@ -28,7 +28,6 @@ export function AuthProvider({ children }) {
             } catch (error) {
                 console.error(error);
                 setCurrentUser(null);
-                throw error; 
             }
         };
 
@@ -39,16 +38,20 @@ export function AuthProvider({ children }) {
 
     const fetchUser = async () => {
         try {
-            const userResponse = await axios.get('http://localhost:3000/v1/users/me', {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('ACCESS_TOKEN_KEY')}`,
-                },
-            });
+            const userResponse = await axios.get(
+                'http://localhost:3000/v1/users/me',
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem(
+                            'ACCESS_TOKEN_KEY'
+                        )}`,
+                    },
+                }
+            );
             setCurrentUser(userResponse.data);
         } catch (error) {
             console.error(error);
             setCurrentUser(null);
-            throw error; // Re-throw the error to be caught in the component
         }
     };
 
@@ -121,7 +124,14 @@ export function AuthProvider({ children }) {
 
     return (
         <AuthContext.Provider
-            value={{ currentUser, setCurrentUser, register, login, logout, fetchUser }}>
+            value={{
+                currentUser,
+                setCurrentUser,
+                register,
+                login,
+                logout,
+                fetchUser,
+            }}>
             {children}
         </AuthContext.Provider>
     );

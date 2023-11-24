@@ -8,17 +8,17 @@ const Menu = ({ source, className }) => {
     let menuView;
     if (source) {
         menuView = source.map((item) => {
-            if (item.subMenu) {
-                return <MenuDropdown source={item} key={item.text} />;
+            if (item.subCategories) {
+                return <MenuDropdown source={item} key={item._id} />;
             } else if (item.megaContent) {
-                return <MegaMenu source={item} key={item.text} />;
+                return <MegaMenu source={item} key={item._id} />;
             } else {
                 return (
-                    <li key={item.text}>
-                        <Link href={item.url}>
+                    <li key={item._id}>
+                        <Link href={`/category/${item.slug}`}>
                             <a>
                                 {item.icon && <i className={item.icon}></i>}
-                                {item.text}
+                                {item.name}
                             </a>
                         </Link>
                     </li>
