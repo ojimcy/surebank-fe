@@ -8,8 +8,9 @@ import {
     setCartItems,
     createOrder,
     setShippingAddress,
-    setOrderDetails
+    setOrderDetails,
 } from '~/store/ecomerce/action';
+import { addToCart, clearCart, removeCart } from '~/services/product.service';
 
 export default function useEcomerce() {
     const dispatch = useDispatch();
@@ -21,15 +22,18 @@ export default function useEcomerce() {
         loading,
         cartItemsOnCookie,
         products,
+
         getProducts: async (payload, group = '') => {
             setLoading(true);
             if (payload && payload.length > 0) {
                 let queries = '';
                 payload.forEach((item) => {
                     if (queries === '') {
-                        queries = `ids=${item.id}`;
+                        queries = `ids=${item.cartItem.productCatalogueId}`;
                     } else {
-                        queries = queries + `&ids=${item.id}`;
+                        queries =
+                            queries +
+                            `&ids=${item.cartItem.productCatalogueId}`;
                     }
                 });
                 const responseData = await ProductRepository.getProductsByIds(
@@ -94,39 +98,54 @@ export default function useEcomerce() {
             return cart;
         },
 
-        addItem: (newItem, items, group) => {
-            let newItems = [];
-            if (items) {
-                newItems = items;
-                const existItem = items.find((item) => item.id === newItem.id);
-                if (existItem) {
-                    if (group === 'cart') {
-                        existItem.quantity += newItem.quantity;
+        addItem: async (newItem, items, group) => {
+            try {
+                // Call the addToCart service to add the product to the cart
+                const cartItem = await addToCart({
+                    productCatalogueId: newItem.id,
+                    quantity: newItem.quantity,
+                });
+
+                let newItems = [];
+                if (items) {
+                    newItems = items;
+                    const existItem = items.find(
+                        (item) => item.id === newItem.id
+                    );
+                    if (existItem) {
+                        if (group === 'cart') {
+                            existItem.quantity += newItem.quantity;
+                        }
+                    } else {
+                        newItems.push(cartItem);
                     }
                 } else {
-                    newItems.push(newItem);
+                    newItems.push(cartItem);
                 }
-            } else {
-                newItems.push(newItem);
-            }
-            if (group === 'cart') {
-                setCookie('cart', newItems, { path: '/' });
-                dispatch(setCartItems(newItems));
-            }
-            if (group === 'wishlist') {
-                setCookie('wishlist', newItems, { path: '/' });
+                if (group === 'cart') {
+                    setCookie('cart', newItems, { path: '/' });
+                    dispatch(setCartItems(newItems));
+                }
+                if (group === 'wishlist') {
+                    setCookie('wishlist', newItems, { path: '/' });
 
-                dispatch(setWishlistTtems(newItems));
-            }
+                    dispatch(setWishlistTtems(newItems));
+                }
 
-            if (group === 'compare') {
-                setCookie('compare', newItems, { path: '/' });
-                dispatch(setCompareItems(newItems));
+                if (group === 'compare') {
+                    setCookie('compare', newItems, { path: '/' });
+                    dispatch(setCompareItems(newItems));
+                }
+                return newItems;
+            } catch (error) {
+                console.error('Error adding item to cart:', error.message);
             }
-            return newItems;
         },
 
-        removeItem: (selectedItem, items, group) => {
+        removeItem: async (selectedItem, items, group) => {
+            console.log(items);
+            await removeCart(selectedItem.id);
+
             let currentItems = items;
             if (currentItems.length > 0) {
                 const index = currentItems.findIndex(
@@ -150,7 +169,8 @@ export default function useEcomerce() {
             }
         },
 
-        removeItems: (group) => {
+        removeItems: async (group) => {
+            await clearCart();
             if (group === 'wishlist') {
                 setCookie('wishlist', [], { path: '/' });
                 dispatch(setWishlistTtems([]));
@@ -172,7 +192,7 @@ export default function useEcomerce() {
         setShippingAddress: (address) => {
             dispatch(setShippingAddress(address));
         },
-        
+
         setOrderDetails: (order) => {
             dispatch(setOrderDetails(order));
         },

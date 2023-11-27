@@ -117,7 +117,7 @@ class ProductRepository {
                 }
             })
             .catch((error) => {
-                console.log(JSON.stringify(error));
+                console.error(JSON.stringify(error));
                 return null;
             });
         return response;

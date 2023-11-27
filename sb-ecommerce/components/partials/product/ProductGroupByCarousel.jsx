@@ -15,7 +15,7 @@ const ProductGroupByCarousel = ({
 }) => {
     const sliderRef = useRef(null);
     const [loading, setLoading] = useState(false);
-    const [productItems, setProductItems] = useState(null);
+    const [productItems, setProductItems] = useState([]);
 
     async function getProducts() {
         setLoading(true);
@@ -113,7 +113,6 @@ const ProductGroupByCarousel = ({
             },
         ],
     };
-
     // Views
     let productItemsView;
     if (!loading) {

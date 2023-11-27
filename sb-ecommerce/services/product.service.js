@@ -71,8 +71,21 @@ export const getProductBySlug = async (collectionSlug) => {
     return response.data;
 };
 
-export const uploadeFile = async (upladData) => {
-    const response = await axiosService.post(`/upload`, upladData);
-    console.log(response);
+export const uploadeFile = async (uploadData) => {
+    const response = await axiosService.post(`/upload`, uploadData);
+    return response.data;
+};
+
+export const addToCart = async (cartData) => {
+    const response = await axiosService.post(`/cart`, cartData);
+    return response.data;
+};
+
+export const removeCart = async (productCatalogueId) => {
+    await axiosService.delete(`/cart`, productCatalogueId);
+};
+
+export const clearCart = async () => {
+    const response = await axiosService.post(`/clear`);
     return response.data;
 };
