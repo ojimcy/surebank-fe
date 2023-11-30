@@ -94,17 +94,19 @@ const SbPackage = ({ packages, createAccount }) => {
                             cover={
                                 <img
                                     alt="product"
-                                    src={p.products.featuredImage}
+                                    src={p.product.featuredImage}
                                 />
                             }>
                             <h4 className="text-center">{p.target}</h4>
                             <p>
                                 Total Contribution:{' '}
-                                {formatNaira(p.totalContribution)}
+                                {p.totalContribution &&
+                                    formatNaira(p.totalContribution)}
                             </p>
                             <p>
-                                Target Amount: {formatNaira(p.amountPerDay)} /
-                                Day
+                                Target Amount:{' '}
+                                {p.amountPerDay && formatNaira(p.amountPerDay)}{' '}
+                                / Day
                             </p>
                             <p>Start Date: {formatDate(p.startDate)}</p>
                             <Progress

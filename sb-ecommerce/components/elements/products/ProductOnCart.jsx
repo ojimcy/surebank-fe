@@ -5,7 +5,7 @@ import { formatNaira } from '~/utilities/formatNaira';
 
 const ProductOnCart = ({ product, children }) => {
     const { thumbnailImage, title } = useProduct();
-
+console.log(product);
     return (
         <div className="ps-product--cart-mobile">
             <div className="ps-product__thumbnail">

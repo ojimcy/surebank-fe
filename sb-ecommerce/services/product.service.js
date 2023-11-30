@@ -86,6 +86,11 @@ export const removeCart = async (productCatalogueId) => {
 };
 
 export const clearCart = async () => {
-    const response = await axiosService.post(`/clear`);
+    const response = await axiosService.post(`/cart/clear`);
+    return response.data;
+};
+
+export const getCartItems = async () => {
+    const response = await axiosService.get(`/cart`);
     return response.data;
 };

@@ -143,13 +143,12 @@ export default function useEcomerce() {
         },
 
         removeItem: async (selectedItem, items, group) => {
-            console.log(items);
-            await removeCart(selectedItem.id);
+            await removeCart(selectedItem.productCatalogueId);
 
             let currentItems = items;
             if (currentItems.length > 0) {
                 const index = currentItems.findIndex(
-                    (item) => item.id === selectedItem.id
+                    (item) => item.id === selectedItem.productCatalogueId
                 );
                 currentItems.splice(index, 1);
             }

@@ -9,13 +9,14 @@ import { formatNaira } from '~/utilities/formatNaira';
 const MiniCart = ({ ecomerce }) => {
     const { products, removeItem, removeItems, getProducts } = useEcomerce();
 
-    function handleRemoveItem(e, productId) {
+    function handleRemoveItem(e) {
         e.preventDefault();
-        removeItem(productId, ecomerce.cartItems, 'cart');
+        removeItem(ecomerce.cartItems, 'cart');
     }
     useEffect(() => {
         getProducts(ecomerce.cartItems, 'cart');
     }, [ecomerce]);
+    
     let cartItemsView;
     if (products && products.length > 0) {
         const amount = calculateAmount(products);
@@ -24,7 +25,7 @@ const MiniCart = ({ ecomerce }) => {
                 <ProductOnCart product={item} key={item.id}>
                     <a
                         className="ps-product__remove"
-                        onClick={(e) => handleRemoveItem(e, item.id)}>
+                        onClick={(e) => handleRemoveItem(e)}>
                         <i className="icon-cross"></i>
                     </a>
                 </ProductOnCart>
