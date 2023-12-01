@@ -10,7 +10,12 @@ import {
     setShippingAddress,
     setOrderDetails,
 } from '~/store/ecomerce/action';
-import { addToCart, clearCart, removeCart } from '~/services/product.service';
+import {
+    addToCart,
+    clearCart,
+    getCartItems,
+    removeCart,
+} from '~/services/product.service';
 
 export default function useEcomerce() {
     const dispatch = useDispatch();
@@ -18,10 +23,13 @@ export default function useEcomerce() {
     const [cartItemsOnCookie] = useState(null);
     const [cookies, setCookie] = useCookies(['cart']);
     const [products, setProducts] = useState(null);
+    const [cart, setCart] = useState([]);
+
     return {
         loading,
         cartItemsOnCookie,
         products,
+        cart,
 
         getProducts: async (payload, group = '') => {
             setLoading(true);
@@ -68,6 +76,16 @@ export default function useEcomerce() {
             }
         },
 
+        getCart: async () => {
+            try {
+                const updatedCartItems = await getCartItems();
+                setCart(updatedCartItems);
+                return updatedCartItems;
+            } catch (error) {
+                console.error('Error fetching cart items:', error.message);
+            }
+        },
+
         increaseQty: (payload, currentCart) => {
             let cart = [];
             if (currentCart) {
@@ -106,6 +124,10 @@ export default function useEcomerce() {
                     quantity: newItem.quantity,
                 });
 
+                const updatedCartItems = await getCartItems();
+                console.log(updatedCartItems);
+                setCart(updatedCartItems);
+
                 let newItems = [];
                 if (items) {
                     newItems = items;
@@ -124,7 +146,7 @@ export default function useEcomerce() {
                 }
                 if (group === 'cart') {
                     setCookie('cart', newItems, { path: '/' });
-                    dispatch(setCartItems(newItems));
+                    dispatch(setCartItems(updatedCartItems));
                 }
                 if (group === 'wishlist') {
                     setCookie('wishlist', newItems, { path: '/' });

@@ -1,28 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Link from 'next/link';
 import ProductOnCart from '~/components/elements/products/ProductOnCart';
 import useEcomerce from '~/hooks/useEcomerce';
-import { calculateAmount } from '~/utilities/ecomerce-helpers';
 import { formatNaira } from '~/utilities/formatNaira';
 
 const MiniCart = ({ ecomerce }) => {
-    const { products, removeItem, removeItems, getProducts } = useEcomerce();
+    const { removeItem, cart, getCart } = useEcomerce();
 
     function handleRemoveItem(e) {
         e.preventDefault();
         removeItem(ecomerce.cartItems, 'cart');
     }
+
     useEffect(() => {
-        getProducts(ecomerce.cartItems, 'cart');
-    }, [ecomerce]);
-    
+        getCart();
+    }, []); 
+
     let cartItemsView;
-    if (products && products.length > 0) {
-        const amount = calculateAmount(products);
-        const productItems = products.map((item) => {
+    if (cart && cart.length !== 0) {
+        const amount = cart.cart.total;
+        const productItems = cart.cartItems.map((item) => {
             return (
-                <ProductOnCart product={item} key={item.id}>
+                <ProductOnCart cart={item} product={item.product} key={item.id}>
                     <a
                         className="ps-product__remove"
                         onClick={(e) => handleRemoveItem(e)}>
@@ -67,7 +67,7 @@ const MiniCart = ({ ecomerce }) => {
             <a className="header__extra" href="#">
                 <i className="icon-bag2"></i>
                 <span>
-                    <i>{products ? products.length : 0}</i>
+                    <i>{cart.cartItems ? cart.cartItems.length : 0}</i>
                 </span>
             </a>
             {cartItemsView}

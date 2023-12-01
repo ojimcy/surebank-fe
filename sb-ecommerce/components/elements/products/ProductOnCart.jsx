@@ -3,9 +3,8 @@ import Link from 'next/link';
 import useProduct from '~/hooks/useProduct';
 import { formatNaira } from '~/utilities/formatNaira';
 
-const ProductOnCart = ({ product, children }) => {
+const ProductOnCart = ({ cart, product, children }) => {
     const { thumbnailImage, title } = useProduct();
-console.log(product);
     return (
         <div className="ps-product--cart-mobile">
             <div className="ps-product__thumbnail">
@@ -17,7 +16,7 @@ console.log(product);
                 {title(product)}
                 <p>
                     <small>
-                        {formatNaira(product.price)} x {product.quantity}
+                        {formatNaira(product.price)} x {cart.quantity}
                     </small>
                 </p>{' '}
                 {children}
